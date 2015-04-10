@@ -1,0 +1,1 @@
+wir benoetigen eine gerade anzahl an primzahlen

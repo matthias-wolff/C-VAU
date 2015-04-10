@@ -1,0 +1,1 @@
+beim beruehren des bildschirms aendert sich die cursorposition

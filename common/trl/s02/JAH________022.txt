@@ -1,0 +1,1 @@
+wir senden eine echo nachricht zu dem knoten

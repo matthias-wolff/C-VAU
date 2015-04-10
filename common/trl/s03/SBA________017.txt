@@ -1,0 +1,1 @@
+das aufnahmeprogramm ist mit java geschrieben

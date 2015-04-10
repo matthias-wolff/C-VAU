@@ -1,0 +1,1 @@
+die textabhaengige sprechererkennung funktioniert besser

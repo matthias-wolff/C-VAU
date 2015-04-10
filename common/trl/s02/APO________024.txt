@@ -1,0 +1,1 @@
+zur sprechererkennung wird ein maximum likelihood klassifikator eingesetzt

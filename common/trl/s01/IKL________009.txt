@@ -1,0 +1,1 @@
+die testaufnahmen werden mit einem java programm durchgefuehrt

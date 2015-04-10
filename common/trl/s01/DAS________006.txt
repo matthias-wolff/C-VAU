@@ -1,0 +1,1 @@
+die aufnahmen finden ueber ein java programm statt
