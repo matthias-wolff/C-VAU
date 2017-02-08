@@ -1,0 +1,19 @@
+## UASR class definition file
+## - Voice authentication database
+##
+##   first  column: model name (speaker ID)
+##   second column: number of HMM states (1 --> GMM)
+
+CEW 1
+DAS 1
+IFE 1
+IKL 1
+JAH 1
+MBI 1
+MKA 1
+PGE 1
+SBA 1
+SWI 1
+_UNK_ 1
+
+## EOF

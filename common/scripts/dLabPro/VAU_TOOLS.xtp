@@ -1,0 +1,155 @@
+#!/usr/bin/env dlabpro
+## UASR: Unified Approach to Speech Synthesis and Recognition
+## - <short description>
+##
+## AUTHOR : <author(s)>
+## PACKAGE: uasr-data/vau/scripts/dlabpro
+##
+## ARGUMENTS:
+##   $1: Command or 'help'
+##   $2: Setup file or, if 1st arg. is 'help', command
+
+"$UASR_HOME/scripts/dlabpro/util/cfg.itp"                              include; # Include configuration utilities
+"$UASR_HOME/scripts/dlabpro/util/fea.itp"                              include; # Include feature utilities
+"$UASR_HOME/scripts/dlabpro/util/lab.itp"                              include; # Include label utilities
+"$UASR_HOME/scripts/dlabpro/util/os.itp"                               include; # Include OS utilities
+"$UASR_HOME/scripts/dlabpro/util/sig.itp"                              include; # Include signal utilities
+"$UASR_HOME/scripts/dlabpro/util/uasr.itp"                             include; # Include UASR utilities
+"$UASR_HOME/scripts/dlabpro/util/var.itp"                              include; # Include variables' utilities
+
+## Prints help on usage.
+##
+## @param sCmd string
+##          Command to display help for (general help if empty).
+## @return 0.
+function -usage(sCmd)
+{
+  "\n"                                                                   -MSG;
+  sCmd "ltf" == if
+      "\n   ltf: Compute (speaker dependent) long-term features"         -MSG;
+    "\n\n   USAGE:"                                                      -MSG;
+      "\n     dlabpro $__SFILE__.xtp ltf <cfgfile> [options]"            -MSG;
+    "\n\n   ARGUMENTS:"                                                  -MSG;
+      "\n     <cfgfile>       UASR configuration file"                   -MSG;
+    "\n\n   OPTIONS:"                                                    -MSG;
+      "\n     -c              use colors for screen protocol"            -MSG;
+      "\n     -P<key>=<value> override config. key-value-pairs"          -MSG;
+      "\n     -v<n>           verbose level"                             -MSG;
+    "\n\n   REMARKS:"                                                    -MSG;
+      "\n     Special <key>s for $__SFILE__.xtp ???:"                    -MSG;
+      "\n       set : data set; \"001\", \"002\", etc."                  -MSG;
+    "\n\n   EXAMPLE:"                                                    -MSG;
+      "\n     $__SFILE__.xtp ltf myconfig.cfg"                           -MSG;
+    "\n\n"                                                               -MSG;
+    0 return;
+  end
+    "\n   SYNOPSIS:"                                                     -MSG;
+    "\n     $__SFILE__: ..."                                             -MSG;
+  "\n\n   USAGE:"                                                        -MSG;
+    "\n     dlabpro $__SFILE__.xtp <command> <cfgfile> [options]"        -MSG;
+  "\n\n   COMMANDS:"                                                     -MSG;
+    "\n     ltf - Compute (speaker dependent) long-term features"        -MSG;
+  "\n\n  Type 'dlabpro $__SFILE__.xtp help <command>' for help on a "    -MSG;
+         "specific command."                                             -MSG;
+    "\n"                                                                 -MSG;
+  0 return;
+}
+
+## Command handler for ltf.
+function -CMD_ltf()
+{
+  var        i;                                                                 # Auxiliary counter
+  var        sFname;                                                            # Output file name (w/o path and ext.)
+  data       idFea;                                                             # Feature vector sequence
+  data       idMean;                                                            # Class dep. mean vectors of features
+  data       idMeanPool;                                                        # Pooled mean vector of features
+  statistics iS;                                                                # Feature statistics
+  statistics iSpool;                                                            # Pooled feature statistics
+
+  ## Initialize                                                                 # -------------------------------------
+  "\n\n// Computation of (speaker dependent) long-term features"          -MSG; # Screen protocol
+  var sSet; ( "set"     "001" "S" -CFG_get_ex ) sSet =;                         # Get data set
+  var sPfa; ( "pfa"     "MEL" "S" -CFG_get_ex ) sPfa =;                         # Feature (spectrum) type
+  var nDim; ( "pfa.dim" 30    "S" -CFG_get_ex ) nDim =;                         # Feature vector dimension
+  "\n   - Data set      : $[sSet]"                                        -MSG; # Protocol
+  "\n   - Feature type  : $[sPfa]_$[nDim]"                                -MSG; # Protocol
+  var  sLogDir; ( "log" "" -CFG_get_path         ) sLogDir =;                   # Get log folder
+  data idLtb;   ( -LAB_get_tab                   ) idLtb   =;                   # Get label table (class list)
+  file iF;      ( "$[sSet]" "" -CFG_get_flist ) iF -set flist;             		# Complete file list
+	
+  ## Loop over speech files                                                     # -------------------------------------
+  "\n\n   Analyzing $[iF.len] turn(s) ..."                                -MSG; # Screen protocol
+  0 1 -PBAR;                                                                    # Begin progress bar
+  iF -reset; iF -next while                                                     # Get next file from file list >>
+    "\n   - $[iF.nfile 1 +]/$[iF.len] $[iF.sfile]: "                     -MSG2; #   Screen protocol (verbose level 2)
+    :(iF.nfile+1)/iF.len: 1                                              -PBAR; #   Display progress
+
+    iF NULL "S" idFea -FEA_get;                                      "." -MSG2; #   Load features
+    iF.nfile 0 == if                                                            #   This is the first file >>
+      2 ( idFea.dim -- ) idLtb.nrec idLtb 0 iS -setup;                          #     Setup statistics
+      .__UTL_nVlevel 2 > if iS -status; end                                     #     Verbose lvl. >2: Stat. status
+    end                                                                         #   <<
+    idFea -1 NULL iS -update;                                                   #   Do feature statistics
+
+  end                                                                           # <<
+  "\n   " -MSG2; "done\n"                                                 -MSG; # Finish progress bar
+
+  ## Aftermath                                                                  # -------------------------------------
+  idMean iS -mean;                                                              # Get class-dependent mean vectors
+  0 idMean -set nblock;                                                         # Remove blocks
+  iS.ltb idMean -join;                                                          # Add class labels
+  idMean ' idMean =;                                                            # Transpose
+  iS NULL iSpool -pool;                                                         # Compute pooled statistics
+  idMeanPool iSpool -mean;                                                      # Get class-dependent mean vectors
+  idMeanPool ' idMean -join; idMean.dim -- "pool" idMean -set_cname;            # Join to mean vectors
+  idFea.cinc idMean -set rinc; idFea cunit idMean -set runit;                   # Set physical units
+  "" idMean -set rtext;                                                         # Pure magic: Make display hint
+  0 i =; i idMean.dim -- < while                                                # ...
+    ( idMean.rtext "0,Oscillogram\n" + ) idMean -set rtext;                     # ...
+    i ++=;                                                                      # ...
+  end                                                                           # ...
+  ( idMean.rtext "1,Oscillogram" + ) idMean -set rtext;                         # ...
+  "long_term-$[sPfa]_$[nDim]-$[sSet]" sFname =;                                 # Make outout file name
+  "\n   Writing $[sLogDir]/$[sFname].dn3 ..."                             -MSG; # Protocol
+  "$[sLogDir]/$[sFname].dn3" idMean -save;                                      # Save class dependent mean vectors
+  " done."                                                                -MSG; # Protocol
+  
+  "\n\n// $__SFILE__.xtp completed (${.__UTL_nErrors} errors).\n"         -MSG; # Protocol
+  0 return;                                                                     # Return error state
+
+  label L_EXCEPTION                                                             # Exception label
+  "\n\n// $__SFILE__.xtp did NOT complete (${.__UTL_nErrors} errors).\n"  -MSG; # Protocol
+  1 return;                                                                     # Return error state
+}
+
+## == MAIN PROGRAM ==                                                           # =====================================
+
+"\n// UASR - UNIFIED APPROACH TO SPEECH SYNTHESIS AND RECOGNITION"        -MSG; # Protocol               
+"\n// $__SFILE__.xtp"                                                     -MSG; # Protocol
+"\n// Process         : $HOSTNAME/" -pid +                                -MSG; # Protocol
+"\n// dLabPro VID     : " -version +                                      -MSG; # Protocol
+"\n// UASR VID        : " -UASR_version +                                 -MSG; # Protocol
+( "$1" "help" == ) -UASR_help || if "$2" -usage; 0 return; end                  # Print help
+"$1" var sCmd;                                                                  # Get command
+$$ 2 < if                                                                       # Less than two arguments >>
+  "Too few arguments"                                                   -ERROR; #   Error
+  "\nType '$__SFILE__.xtp help' for usage\n"                             -echo; #   Give a little help
+  1 return;                                                                     #   Terminate with error code
+end                                                                             # <<
+
+## Initialize session                                                           # -------------------------------------
+"\n// Configuration   : $2"                                               -MSG; # Protocol
+"$2" TRUE -CFG_init;                                                            # Configure session
+"$UASR_HOME/scripts/dlabpro/util/uasr_session.itp"                     include; # Include UASR session startup script
+
+## Overload functions                                                           # -------------------------------------
+/disarm -LAB_import_flist /disarm -LAB_import =;                                # Use labels from file list
+
+## Execute commands                                                             # -------------------------------------
+-CMD_$[sCmd] ?error if                                                          # Call command handler, failed >>
+  "Unknown command \"$[sCmd]\""                                         -ERROR; #   Error
+  "\nType '$__SFILE__.xtp help' for usage\n"                             -echo; #   Give a little help
+  1 return;                                                                     #   Terminate with error code
+end return;                                                                     # << ok; return result
+
+## EOF

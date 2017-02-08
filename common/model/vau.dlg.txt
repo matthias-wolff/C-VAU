@@ -1,0 +1,152 @@
+## Brandenburgische Technische Universität Cottbus
+## Lehrstuhl Kommunikationstechnik
+## Voice authentication: Speech dialog definition file
+
+## Dialog ----------------------------------------------------------------------
+DLG: (S) __WAKEUP__ (1)
+DLG: (1) __SLEEP__ (S)
+
+## Grammar of state 0 (sleeping) -----------------------------------------------
+GRM.S: (S) <PAU> (S)
+GRM.S: (F) <PAU> (F)
+GRM.S: S   computer:__WAKEUP__
+GRM.S: S   <OOV>:OOT:30
+
+## Grammar of state 1 (awake) --------------------------------------------------
+GRM.1: (S)         <PAU> (S)
+GRM.1: (F)         <PAU> (F)
+GRM.1: S           <OOV>:OOT:30
+GRM.1: S           computer:COMPUTER
+GRM.1: S           ok:__SLEEP__
+GRM.1: S           :FVR[AUTH[ autorisierung:(autorisierung) OPAU PASSPHR :]]
+GRM.1: PASSPHR     :CLID[ ahlers:JAH_(ahlers)         CJ CC :]
+GRM.1: PASSPHR     :CLID[ aschenbach:DAS_(aschenbach) CG CE :]
+GRM.1: PASSPHR     :CLID[ baschinski:SBA_(baschinski) CP CA :]
+GRM.1: PASSPHR     :CLID[ birth:MBI_(birth) 		  CL CA :]
+GRM.1: PASSPHR     :CLID[ ewald:CEW_(ewald)           CG CM :]
+GRM.1: PASSPHR     :CLID[ fellendorf:IDE_(fellendorf) CB CN :]
+GRM.1: PASSPHR     :CLID[ foerster:LFO_(foerster)     CD C3 :]
+GRM.1: PASSPHR     :CLID[ kaiser:MKA_(kaiser)         CW CH :]
+GRM.1: PASSPHR     :CLID[ klug:IKL_(klug)     	      CD CB :]
+GRM.1: PASSPHR     :CLID[ gessler:PGE_(gessler)       CC CO :]
+GRM.1: PASSPHR     :CLID[ wilke:SWI_(wilke)           CP CT :]
+GRM.1: PASSPHR     :CLID[ kuhnke:TKU_(kuhnke)         CV CK :]
+GRM.1: PASSPHR     :CLID[ <OOV>:???_(???):90          C_ C_ :]
+GRM.1: CA          OPAU anton:A(anton)
+GRM.1: C1          OPAU aerger:1(aerger)
+GRM.1: CB          OPAU berta:B(berta)
+GRM.1: CC          OPAU caesar:C(caesar)
+GRM.1: C5          OPAU charlotte:5(charlotte)
+GRM.1: CD          OPAU dora:D(dora)
+GRM.1: CE          OPAU emil:E(emil)
+GRM.1: CF          OPAU friedrich:F(friedrich)
+GRM.1: CG          OPAU gustav:G(gustav)
+GRM.1: CH          OPAU heinrich:H(heinrich)
+GRM.1: CI          OPAU ida:I(ida)
+GRM.1: CJ          OPAU julius:J(julius)
+GRM.1: CK          OPAU kaufmann:K(kaufmann)
+GRM.1: CL          OPAU ludwig:L(ludwig)
+GRM.1: CM          OPAU martha:M(martha)
+GRM.1: CN          OPAU nordpol:N(nordpol)
+GRM.1: CO          OPAU otto:O(otto)
+GRM.1: C2          OPAU oekonom:2(oekonom)
+GRM.1: CP          OPAU paula:P(paula)
+GRM.1: CQ          OPAU quelle:Q(quelle)
+GRM.1: CR          OPAU richard:R(richard)
+GRM.1: CS          OPAU samuel:S(samuel)
+GRM.1: C4          OPAU eszett:4(eszett)
+GRM.1: C6          OPAU schule:6(schule)
+GRM.1: CT          OPAU theodor:T(theodor)
+GRM.1: CU          OPAU ulrich:U(ulrich)
+GRM.1: C3          OPAU uebermut:3(uebermut)
+GRM.1: CV          OPAU viktor:V(viktor)
+GRM.1: CW          OPAU wilhelm:W(wilhelm)
+GRM.1: CX          OPAU xanthippe:X(xanthippe)
+GRM.1: CY          OPAU ypsilon:Y(ypsilon)
+GRM.1: CZ          OPAU zacharias:Z(zacharias)
+GRM.1: C_          CA
+GRM.1: C_          CB
+GRM.1: C_          CC
+GRM.1: C_          CD
+GRM.1: C_          CE
+GRM.1: C_          CF
+GRM.1: C_          CG
+GRM.1: C_          CH
+GRM.1: C_          CI
+GRM.1: C_          CJ
+GRM.1: C_          CK
+GRM.1: C_          CL
+GRM.1: C_          CM
+GRM.1: C_          CN
+GRM.1: C_          CO
+GRM.1: C_          CP
+GRM.1: C_          CQ
+GRM.1: C_          CR
+GRM.1: C_          CS
+GRM.1: C_          CT
+GRM.1: C_          CU
+GRM.1: C_          CV
+GRM.1: C_          CW
+GRM.1: C_          CX
+GRM.1: C_          CY
+GRM.1: C_          CZ
+GRM.1: C_          C1
+GRM.1: C_          C2
+GRM.1: C_          C3
+GRM.1: C_          C4
+GRM.1: C_          C5
+GRM.1: C_          C6
+
+## Lexicon ---------------------------------------------------------------------
+
+LEX: computer      (k|g|)(O|u:|o:|)(m|n|N|)(p|b|)(C|S)u:(t|d)(a:|)(6|)(x|)
+LEX: ok            (Q|g)o:k(e:(6|@|I|)|E)
+LEX: OPAU          (.(#(.|)|)|)
+
+LEX: aerger        (Q|)Erg6
+LEX: ahlers        (Q|)a:l6s
+LEX: anton         (Q|)ant(o:|O)n
+LEX: aschenbach    (Q|)aS(@|)nbax
+LEX: autorisierung (Q|)aUto:ri:zi:rUN
+LEX: baschinski    baSInski:
+LEX: berta         bErta:
+LEX: birth		   bIrt
+LEX: caesar        tsE:za:(r|)
+LEX: charlotte     Sa:(r|)lOt@
+LEX: dora          do:ra:
+LEX: emil          (Q|)e:mi:l
+LEX: eszett        (Q|)EstsEt
+LEX: ewald         (Q|)e:valt
+LEX: fellendorf    fEl@ndOrf
+LEX: foerster      f9(r|)st6
+LEX: friedrich     fri:drIC
+LEX: gessler       gEsl6
+LEX: gustav        gUstaf
+LEX: heinrich      haInrIC
+LEX: ida           (Q|)i:da:
+LEX: julius        ju:li:Us
+LEX: kaiser        kaIz6
+LEX: kaufmann      kaUfman
+LEX: klug		   klu:k
+LEX: kuhnke        ku:nk@
+LEX: ludwig        lu:dvIC
+LEX: martha        marta:
+LEX: nordpol       nOrdpo:l
+LEX: otto          (Q|)oto:
+LEX: oekonom       (Q|)2ko:no:m
+LEX: paula         paUla:
+LEX: quelle        kvEl@
+LEX: richard       rICart
+LEX: samuel        za:mu:e:l
+LEX: schule        Su:l@
+LEX: theodor       te:o:do:r
+LEX: ulrich        (Q|)UlrIC
+LEX: uebermut      (Q|)y:b6mu:t
+LEX: viktor        vIkto:6
+LEX: wilhelm       vIlh@lm
+LEX: wilke         vIlk@
+LEX: xanthippe     ksantIp@
+LEX: ypsilon       (Q|)Ypsi:lOn
+LEX: zacharias     tsaxa:ri:as
+
+## EOF

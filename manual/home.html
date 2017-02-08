@@ -1,0 +1,1337 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<!-- UASR: Unified Approach to Speech Synthesis and Recognition
+<    - Documentation home page
+<   
+<    AUTHOR : Matthias Wolff, Peter Geßler
+<    PACKAGE: n/a
+<   
+<    Copyright 2013 UASR contributors (see COPYRIGHT file)
+<    - Chair of System Theory and Speech Technology, TU Dresden
+<    - Chair of Communications Engineering, BTU Cottbus
+<   
+<    This file is part of UASR.
+<   
+<    UASR is free software: you can redistribute it and/or modify it under the
+<    terms of the GNU Lesser General Public License as published by the Free
+<    Software Foundation, either version 3 of the License, or (at your option)
+<    any later version.
+<   
+<    UASR is distributed in the hope that it will be useful, but WITHOUT ANY
+<    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+<    FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for 
+<    more details.
+<   
+<    You should have received a copy of the GNU Lesser General Public License
+<    along with UASR. If not, see [http://www.gnu.org/licenses/].
+  -->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>Voice Authentication Database Home Page</title>
+  <link rel=stylesheet type="text/css" href="default.css">
+</head>
+<script type="text/javascript">
+  if (top==self)
+	  top.location = "index.html";
+</script>
+<script type="text/javascript" src="default.js"></script>
+<body>
+  <a name="DocHome"></a>
+  <div id="clp_docHome">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td nowrap width="25%" class="navbar">
+          Voice Authentication Database
+        </td>
+        <td nowrap width="75%" class="navbar" style="text-align:right;">
+          <a class="navbar" href="javascript:__PrintSection('clp_docHome','Documentation Home Page','.');"><img src="resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;" alt="Print"></a> 
+          <a class="navbar" href="automatic/kwdindex.html">Keyword Index</a>
+          <a class="navbar" href="automatic/fncindex.html">Function Index</a>
+        </td>
+      </tr>
+    </table>
+    <div class="mframe">
+      <table width="100%" cellSpacing="0" cellPadding="6" border="0">
+        <tr>
+          <td width="50%">
+            <h3 style="margin-top:2pt; margin-bottom:2pt">Contents</h3>
+            <ul class="linklist">
+              <li class="linklist"><a href="#clp_docHome">Documentation Home Page</a></li>
+              <li class="linklist"><a href="#clp_instructions">Instructions</a></li>
+              <li class="linklist">&bullet; <a href="#CompFea">Computing UASR Feature Files</a></li>
+              <li class="linklist">&bullet; <a href="#CreRecExp">Create Speaker Recognition Experiment</a></li>
+              <li class="linklist">&bullet; <a href="#GmmRec">GMM Speaker Recognition</a></li>
+              <li class="linklist">&bullet; <a href="#PspRec">Passphrase Recognition</a></li>
+              <li class="linklist"><a href="#clp_dbstructure">Database Structure</a></li>
+            </ul>
+          </td>
+          <td width="50%">
+            <h3 style="margin-top:2pt; margin-bottom:2pt">Links</h3>
+            <ul class="linklist">
+              <li class="linklist"><a href="automatic/kwdindex.html">Keyword Index</a></li>
+              <li class="linklist"><a href="automatic/fncindex.html">Alphabetical Index of Functions</a></li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <a name="instructions"></a>
+  <div id="clp_instructions">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td nowrap width="25%" class="navbar">
+          Instructions
+        </td>
+        <td nowrap width="75%" class="navbar" style="text-align:right;">
+          <a class="navbar" href="javascript:__PrintSection('clp_instructions','Instructions','.');"><img src="resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;" alt="Print"></a> 
+          <a class="navbar" href="automatic/kwdindex.html">Keyword Index</a>
+          <a class="navbar" href="automatic/fncindex.html">Function Index</a>
+        </td>
+      </tr>
+    </table>
+    <div class="mframe2">
+      <h3><a name="CompFea"></a>Computing UASR Feature Files</h3>
+      <p>UASR feature vector files can be created using the <a target="_top"
+      href="../../../uasr/manual/automatic/tools/DB.xtp.html" 
+      class="code">DB.xtp</a> tool:</p>
+      <pre class="code">
+ cd $UASR_HOME-data/vau
+ <a target="_top" href="../../../uasr/manual/automatic/tools/DB.xtp.html">DB.xtp</a> &lt;featype&gt; common/info/featureanalysis.cfg [-v2] [-c] [-n]
+</pre>
+      <table class="indent" style="margin-top:3pt">
+        <tr>
+          <td class="hidden">Options:</td>
+          <td class="hidden"><code>-v2</code></td>
+          <td class="hidden">More screen protocol</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"><code>-c</code></td>
+          <td class="hidden">Use colors for screen protocol</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"><code>-n</code></td>
+          <td class="hidden">Do not write any files</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"> </td>
+          <td class="hidden"> <a target="_top" href="../../../uasr/manual/automatic/tools/DB.xtp.html">more options...</a></td>
+        </tr>
+      </table>
+      <p><code>&lt;featype&gt;</code> stands for the type of features to be
+      computed:</p>
+      <table class="indent">
+        <tr>
+          <th><code>&lt;featype&gt;</code></th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td><a href="automatic/vau.itp.html#clp_-CMD_DB_pfv" class="code">pfv</a></td>
+          <td>Primary feature vectors (default: 30 channel mel-scaled filter bank)</td>
+        </tr>
+        <tr>
+          <td><a href="automatic/vau.itp.html#clp_-CMD_DB_sfv" class="code">sfv</a></td>
+          <td>(Most significant) secondary feature vectors (Primary+Delta+Delta-Delta+PCA)</td>
+        </tr>
+        <tr>
+          <td><a href="automatic/vau.itp.html#clp_-CMD_DB_lfv" class="code">lfv</a></td>
+          <td>Least significant secondary feature vectors</td>
+        </tr>
+        <tr>
+          <td><a href="automatic/vau.itp.html#clp_-CMD_DB_rnd" class="code">rnd</a></td>
+          <td>Random feature vectors<sup>1)</sup></td>
+        </tr>
+      </table>
+      <table class="indent" style="margin-top:3pt">
+        <tr>
+          <td class="hidden"><sup>1)</sup></td>
+          <td class="hidden">For algorithm testing: There is nothing to be 
+          learned from random features, so the recognition rate can neither be
+          significantly greater nor significantly less than 1/#speakers.</td>
+        </tr>
+      </table>
+      <p>
+        The tool generates ASCII files which contain one feature vector per line. 
+        All files will be stored in <code>$UASR_HOME-data/vau/common/fea/&lt;featype&gt;_&lt;feadim&gt;</code>,
+        where <code>&lt;feadim&gt;</code> denotes the feature space dimension.
+      </p>
+
+      <p>You can also use any other tools to create feature vector files as long
+      as they conform to the described ASCII format and will be properly located 
+      in the <a target="_top"
+      href="../../../uasr/manual/automatic/util/cfg.itp.html#index:datadirs">UASR
+      database structure</a>.</p>
+      
+      
+      <h3><a name="CreRecExp"></a>Create Speaker Recognition Experiment</h3>
+      <p><b>Important:</b> See existing <a href="#clp_dbstructure">database structure</a> before creating an experiment.</p>
+      <p>Create project and experiment folders in directory <code>GMM/flists</code> and <code>GMM/info</code>.</p>
+      <p>Include <code>[project.name]_[exp.name]_train.flst</code> and <code>[project.name]_[exp.name]_test.flst</code> with
+      training and test data in <code>GMM/flists/[project.name]/[exp.name]</code> directory.<p>
+      <p> Create configuration files <code>[project.name]_[exp.name]_[fea]_[feaDim].cfg</code> and<br>
+      <code>[project.name]_[exp.name]_test.cfg</code> in <code>GMM/info/[project.name]/[exp.name]</code>.</p>
+      <p><code>[project.name]_[exp.name]_[fea]_[feaDim].cfg</code> contains references to associated experiment folder and feature directory.</p>
+      <p>File also includes references to feature and default configuration file in <code>GMM/info</code>.</p>
+      <p>Finally there is an <code>GMM/info/[project.name]/[exp.name]/[project.name]_[exp.name]_test.cfg</code> reference.
+      <p>[project.name]_[exp.name]_test.cfg contain train file list and test file list includes. Use UASR Keys <code>uasr.flist.train</code> and <code>uasr.flist.test</code>.
+
+      <h3><a name="GmmRec"></a>GMM Speaker Recognition</h3>
+      <p><b>Important:</b> Before running the classifier you must <a
+      href="#CompFea">compute feature vector files</a>.</p>
+      <p>The GMM training and classification is performed by the <a class="code"
+      target="_top" href="../../../uasr/manual/automatic/HMM.xtp.html">HMM.xtp</a>
+      tool:</p>
+      <pre class="code">
+ cd $UASR_HOME-data/vau
+ <a target="_top" href="../../../uasr/manual/automatic/HMM.xtp.html#clp_trn">HMM.xtp trn</a> GMM/info/&lt;featype&gt;_&lt;datasets&gt;.cfg [-v2] [-c] [-n] [-Pskip=&lt;flags&gt;]
+</pre>
+      <table class="indent" style="margin-top:3pt">
+        <tr>
+          <td class="hidden">Options:</td>
+          <td class="hidden"><code>-v2</code></td>
+          <td class="hidden">More screen protocol</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"><code>-c</code></td>
+          <td class="hidden">Use colors for screen protocol</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"><code>-n</code></td>
+          <td class="hidden">Do not write any files</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"><code>-Pskip=ET</code></td>
+          <td class="hidden">Do the training only</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"><code>-Pskip=SUIT</code></td>
+          <td class="hidden">Do the classification only</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"> </td>
+          <td class="hidden"> <a target="_top" href="../../../uasr/manual/automatic/HMM.xtp.html#clp_trn">more options...</a></td>
+        </tr>
+      </table>
+      <p>
+        Models and log files will be stored in <code
+        >$UASR_HOME-data/vau/GMM_&lt;featype&gt;_&lt;datasets&gt;</code>. Use 
+        the <code>-v2</code> option for a detailed recognition log including 
+        per-turn classification results and neglog likelihoods.
+      </p>
+
+      <h3><a name="PspRec"></a>Passphrase Recognition</h3>
+      <h4>1. Creating a Grammar and Dialog File</h4>
+      <p>The passphrase recognizer needs a finite state dialog and grammar to
+      work. The pre-configured dialog and grammer definition is located in
+      <code>$UASR_HOME-data/vau/common/model/vau.dlg.txt</code>. See sections
+      <a target="_top" 
+      href="../../../uasr/manual/automatic/tools/REC_PACKDATA.xtp.html#index:recGrmFiles"
+      >Writing Grammar Files</a> and <a target="_top" 
+      href="../../../uasr/manual/automatic/tools/REC_PACKDATA.xtp.html#index:recDlgFiles"
+      >Writing Dialog Files</a> in the <a target="_top" 
+      href="../../../uasr/manual/index.html">UASR manual</a> for information on 
+      how to customize this file. The grammar and dialog file is compiled
+      by the  <a target="_top" class="code" 
+      href="../../../uasr/manual/automatic/tools/REC_PACKDATA.xtp.html"
+      >REC_PACKDATA.xtp</a> tool:</p>
+      <pre class="code">
+ cd $UASR_HOME-data/vau
+ <a target="_top" href="../../../uasr/manual/automatic/tools/REC_PACKDATA.xtp.html#clp_dlg">HMM.xtp dlg</a> common/info/ASR.cfg [-v2] [-c] [-n]
+</pre>
+      <table class="indent" style="margin-top:3pt">
+        <tr>
+          <td class="hidden">Options:</td>
+          <td class="hidden"><code>-v2</code></td>
+          <td class="hidden">More screen protocol</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"><code>-c</code></td>
+          <td class="hidden">Use colors for screen protocol</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"><code>-n</code></td>
+          <td class="hidden">Do not write any files</td>
+        </tr>
+        <tr>
+          <td class="hidden"> </td>
+          <td class="hidden"> </td>
+          <td class="hidden"> <a target="_top" href="../../../uasr/manual/automatic/tools/REC_PACKDATA.xtp.html#clp_dlg">more options...</a></td>
+        </tr>
+      </table>
+      <p><code>ASR.cfg</code> configures <code>REC_PACKDATA.xtp</code> to handle
+      the following files (all in <code>$UASR_HOME-data/vau/common/model</code>):</p>
+      <table class="indent">
+        <tr>
+          <th>File</th>
+          <th>Descroption</th>
+          <th>Access</th>
+        </tr>
+        <tr>
+          <td><code>vau.dlg.txt</code></td>
+          <td>Voice authentication dialog and grammar</td>
+          <td>read</td>
+        </tr>
+        <tr>
+          <td><code>&lt;HMMID&gt;.hmm</code></td>
+          <td>Phoneme HMMs</td>
+          <td>read</td>
+        </tr>
+        <tr>
+          <td><code>feainfo.object</code></td>
+          <td><a href="../../../uasr/manual/automatic/util/fea.itp.html#index:iFI"
+            target="_top">Acoustic feature information</a></td>
+          <td>read</td>
+        </tr>
+        <tr>
+          <td><code>&lt;HMMID&gt;.gmm</code></td>
+          <td>Gaussian mixture models for recognition networks</td>
+          <td>write</td>
+        </tr>
+        <tr>
+          <td><code>sesinfo.object</code></td>
+          <td><a href="../../../uasr/manual/automatic/tools/REC_PACKDATA.xtp.html#index:iSI"
+            target="_top">Recognizer session information</a> (includes recognition networks)</td>
+          <td>write</td>
+        </tr>
+        <tr>
+          <td><code>dialog.fst</code></td>
+          <td>Dialog state machine</td>
+          <td>write</td>
+        </tr>
+      </table>
+
+      <h4>2. Running the Passphrase Recognizer</h4>
+      <p>There are two options:</p>
+      <ol>
+        <li>
+          You can use the experimental <code>ASR.xtp</code> tool: <pre
+          class="code">
+ cd $UASR_HOME-data/vau
+ dlabpro $UASR_HOME/incubator/ASR.xtp common/info/ASR.cfg -v2
+</pre>
+          Please note that as of UASR version <tt>179C3EF9E4</tt> the recognizer 
+          confidence computation is broken. You cannot rely on the confidence
+          values.
+        </li>
+        <li>
+          Alternatively you can use the <code>recognizer(.exe)</code> tool:
+          <pre class="code">
+ cd $UASR_HOME-data/vau/common/sig<sup>1)</sup>
+ recognizer -cfg ../info/recognizer.cfg ../flists/&lt;filelist&gt;.flst<sup>2)</sup>
+</pre>
+          <table class="indent" style="margin-top:3pt">
+            <tr>
+              <td class="hidden"><sup>1)</sup></td>
+              <td class="hidden">You <em>must</em> change to the signal folder 
+                as the file list entries are relative and the <code
+                >recognizer</code> tool does not understand the UASR database
+                structure.</td>
+            </tr>
+            <tr>
+              <td class="hidden"><sup>2)</sup></td>
+              <td class="hidden">The file extension of a file list <em>must</em>
+                be <tt>.flst</tt>!</td>
+            </tr>
+          </table>
+        
+        </li>
+      </ol>
+      
+    </div>
+  </div>
+
+  <a name="dbstructure"></a>
+  <div id="clp_dbstructure">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td nowrap width="25%" class="navbar">
+          Database Structure
+        </td>
+        <td nowrap width="75%" class="navbar" style="text-align:right;">
+          <a class="navbar" href="javascript:__PrintSection('clp_dbstructure','Database Structure','.');"><img src="resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;" alt="Print"></a> 
+          <a class="navbar" href="automatic/kwdindex.html">Keyword Index</a>
+          <a class="navbar" href="automatic/fncindex.html">Function Index</a>
+        </td>
+      </tr>
+    </table>
+
+  <table class="indent" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td class="hidden"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;UASR-data</td>
+      <td class="hidden">UASR database home directory
+      	<a class="sup" href="#dirs_fn1" title="If key not specified: $UASR_HOME/data">1)</a></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;vau</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="16" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Database Voice Authentication</nobr></td>
+    </tr>
+    <!-- COMMON -->
+    <tbody>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="16" height="16" style="vertical-align:middle;"
+        >&nbsp;common</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="32" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Common data folder</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;fea</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>All feature vector files</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;pfv_30</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Primary feature vector files with 30 dimensions</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s01</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>pfv-files based on speech set 1</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s02</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>pfv-files based on speech set 2</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s03</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>pfv-files based on speech set 3</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;sfv_24</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Secondary feature vector files with 24 dimensions</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s01</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>sfv-files based on speech set 1</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s02</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>sfv-files based on speech set 2</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s03</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>sfv-files based on speech set 3</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;lfv_36</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Least significant feature vector files with 36 dimensions</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s01</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>lfv-files based on speech set 1</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s02</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>lfv-files based on speech set 2</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s03</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>lfv-files based on speech set 3</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;flists</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>File lists</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;all.flst</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Complete database speech set</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s01.flst</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Complete session 1 file list</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s02.flst</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Complete session 2 file list</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s03.flst</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Complete session 3 file list</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;info</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Information</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;ASR.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>automatic speech recognition configuration file</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;featureanalysis.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>feature analysis configuration file</nobr></td>
+    </tr>
+   <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;recognizer.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>recognizer script configuration file</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;log</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Log files</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;model</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Model files</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;3_20.gmm</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>generated gmm data</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;3_20.hmm</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>generated hmm data</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;feainfo.object</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>info data about features</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;sesinfo.object</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>info data about current session</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;vau.dlg.txt</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Speech dialog definition file (grammar)</nobr></td>
+    </tr>
+     <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;scripts</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Script directory</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="16" height="16" style="vertical-align:middle;"
+        >&nbsp;dlabpro</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>dLabPro scripts</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;vau.itp</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Voice authentication database plug-in</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="16" height="16" style="vertical-align:middle;"
+        >&nbsp;matlab</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Matlab scripts</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;sig</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Signal files</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;none</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>distorted audio files</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s01</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>all audio files in set s01</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s02</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>all audio files in set s02</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s03</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>all audio files in set s03</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;trl</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Transliteration files</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;none</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>all distorted file transliterations</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s01</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>all s01 file transliterations</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s02</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>all s02 file transliterations</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;s03</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>all s03 file transliterations</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    </tbody>
+    
+    <!-- EXP GMM_sfv_12 -->
+    <tbody>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;GMM</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="32" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Experiment - speaker recognition with GMM</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;experiments</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Evaluation folder</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;flists</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Experiment file lists</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;[project.name](p)</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Folder to hold experiments in project</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;[experiment.name](exp)</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Folder with experiment file lists</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;[p]_[exp]_test.flst</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>File list with test data entries</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;[p]_[exp]_train.flst</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>File list with training data entries</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;info</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Information</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;[project.name](p)</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>project folder with experiment configuration folder</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;[experiment.name](exp)</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Concrete experiment configuration</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;[p]_[exp]_[fea].cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Concrete experiment configuration</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;[p]_[exp]_test.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Concrete experiment configuration</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>    
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+		><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;classes.txt</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>UASR class definition file</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;default.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>configuration file with standard features and data sets</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;lfv.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Least feature vector configuration file</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;pfv.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Primary feature (Mel filterbank) configuration file</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;rnd.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Random feature configuration file</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+	><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/file.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;sfv.cfg</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Secondary feature (speech recognizer) configuration file</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt04l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;manual</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>Manual with run examples</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt02l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="64" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr></nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt03l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/folder.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;<b>&lt;</b>uasr.exp<b>&gt;</b></td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="32" height="16" style="vertical-align:middle;"
+        >&nbsp;<nobr>another speaker recognition experiment</nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/jtt01l.gif" width="18" height="16" style="vertical-align:middle;"
+        ><img src="resources/blank_stc.gif" width="18" height="16" style="vertical-align:middle;"
+        >&nbsp;&nbsp;&nbsp;.&nbsp;.&nbsp;.</td>
+      <td class="hidden"
+        ><img src="resources/blank_stc.gif" width="48" height="16" style="vertical-align:middle;"
+        >&nbsp;.&nbsp;.&nbsp;.</td>
+    </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+  <div class="footer">End of page</div>
+
+</body>
+</html>
+

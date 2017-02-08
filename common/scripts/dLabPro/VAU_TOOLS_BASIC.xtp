@@ -1,0 +1,33 @@
+
+var     sTurn;   "003/APO_CEW_GM_000"             sTurn   =;
+var     sDirSig; "$UASR_HOME-data/vau/common/sig" sDirSig =;
+var     sDirLog; "$UASR_HOME-data/vau/common/log" sDirLog =;
+data    x;
+data    X;
+data    Xre;
+data    Xim;
+FFTproc iFFT;
+
+"$[sDirSig]/$[sTurn].wav" "wav" x stdfile -import;
+#x -descr; 1 brk;
+#x -print; 1 brk;
+x ( -type double ) x -tconvert; :x/=32768;
+( x abs ) NULL 0 "max" X /rec -aggregate;
+"\nTURN $[sTurn]: f_A = ${1/x.rinc} kHz, l = ${x.rinc*x.nrec} $[x.runit]" -echo;
+", peak = ${round(20*log(X[0,0])*10)/10} dB" -echo;
+
+:1000/x.rinc:              iFFT -set srate;
+9                          iFFT -set order;
+:round(pow(2,iFFT.order)): iFFT -set len;
+400                        iFFT -set wlen;
+"Blackman"                 iFFT -set wtype;
+#iFFT -status;
+
+"\nDoing STFT ..." -echo;
+x NULL Xre Xim iFFT -analyze;                # or: x NULL X NULL iFFT /lmag -analyze;
+:X=max(-96,10*.log(Xre.*Xre+Xim.*Xim));
+
+"\nSaving spectrum ..." -echo;
+"$[sDirLog]/$[sTurn].dn3" X -save;
+
+"\nI have ready.\n" -echo;

@@ -1,0 +1,655 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- UASR: Unified Approach to Speech Synthesis and Recognition
+<
+<    AUTHOR : n/a
+<    PACKAGE: manual
+<
+<    Copyright 2013 UASR contributors (see COPYRIGHT file)
+<    - Chair of System Theory and Speech Technology, TU Dresden
+<    - Chair of Communications Engineering, BTU Cottbus
+<
+<    This file is part of UASR.
+<
+<    UASR is free software: you can redistribute it and/or modify it under the
+<    terms of the GNU Lesser General Public License as published by the Free
+<    Software Foundation, either version 3 of the License, or (at your option)
+<    any later version.
+<
+<    UASR is distributed in the hope that it will be useful, but WITHOUT ANY
+<    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+<    FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for
+<    more details.
+<
+<    You should have received a copy of the GNU Lesser General Public License
+<    along with UASR. If not, see [http://www.gnu.org/licenses/].
+-->
+<html>
+<head>
+  <meta http-equiv="Content-Type" content= "text/html; charset=iso-8859-1">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta name="description" content=   "UASR documentation - UASR script vau.itp">
+  <meta name="author" content="">
+  <meta name="generator" content="UASR_DOC">
+  <title>UASR script vau.itp</title>
+  <link rel=stylesheet type="text/css" href="../default.css">
+</head>
+<script type="text/javascript">
+
+  if (top==self)
+  {
+    var sLocation = "../index.html?automatic/vau.itp.html";
+    if (location.hash.length>0)
+      sLocation += ";"+location.hash.substr(1);
+    top.location = sLocation;
+  }
+</script>
+<script type="text/javascript" src="../default.js"></script>
+<script type="text/javascript">__sRootPath="../..";</script>
+<body>
+
+  <div id="clp_vau.itp">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td nowrap width="25%" class="navbar">
+        UASR script <span class="mid">vau.itp</span>
+      </td>
+      <td nowrap width="75%" class="navbar" style="text-align:right;">
+        <a class="navbar" href="javascript:__PrintSection('','vau.itp','..');"><img
+        src="../resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;"
+        alt="Print"></a> 
+        <a class="navbar" href="#functions">Functions</a>
+        <a class="navbar" href="#">Script</a>
+        <a class="navbar" href="index.html">Package</a>
+        <a class="navbar" href="../automatic/kwdindex.html">Keyword Index</a>
+        <a class="navbar" href="../automatic/fncindex.html">Function Index</a>
+        <a class="navbar" href="../home.html">Home</a>
+      </td>
+    </tr>
+  </table>
+  <div class="mframe">
+  <table cellSpacing="0" cellPadding="0" border="0"> 
+    <tr>
+      <td class="hidden">General</td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Signature</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden"><nobr><b>vau</b> </nobr></td>
+    </tr>
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Author</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Matthias Wolff
+</td>
+    </tr>
+  </table>
+  </div>
+  <div class="mframe2">
+    <h3>Synopsis</h3>
+    <p>Voice authentication database plug-in.
+ </p>
+  <!--{{ CUSTOM_DOC -->
+  <!--}} CUSTOM_DOC -->
+  <a name="functions"></a><h3>Functions</h3>
+  <table cellSpacing="0" cellPadding="4" border="0">
+    <tr>
+      <td class="rowgroup" colSpan="2">Functions</td>
+    </tr>
+    <tr>
+      <td><a href="#clp_-VAU_xfa"><code class="link">-VAU_xfa</code></a></td>
+      <td><code><b>-VAU_xfa</b>(sMode)</code><br>&nbsp;<br>Computes UASR feature vector files from the signal files listed in
+<code>&lt;uasr&#46;flist&#46;all&gt;</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><a href="#clp_-VAU_GMM_FEA_get"><code class="link">-VAU_GMM_FEA_get</code></a></td>
+      <td><code><b>-VAU_GMM_FEA_get</b>(iF,sSns,sMode,idFea)</code><br>&nbsp;<br> Imports a primary feature vector sequence for the GMM speaker classifier.
+      </td>
+    </tr>
+    <tr>
+      <td><a href="#clp_-CMD_DB_pfv"><code class="link">-CMD_DB_pfv</code></a></td>
+      <td><code><b>-CMD_DB_pfv</b></code><br>&nbsp;<br> Command handler for <code>DB&#46;xtp</code>: Computes UASR primary feature
+ vector files from signal files listed in
+ <code>&lt;uasr&#46;flist&#46;all&gt;</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><a href="#clp_-CMD_DB_sfv"><code class="link">-CMD_DB_sfv</code></a></td>
+      <td><code><b>-CMD_DB_sfv</b></code><br>&nbsp;<br> Command handler for <code>DB&#46;xtp</code>: Computes UASR secondary feature
+ vector files files from signal fileslisted in
+ <code>&lt;uasr&#46;flist&#46;all&gt;</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><a href="#clp_-CMD_DB_lfv"><code class="link">-CMD_DB_lfv</code></a></td>
+      <td><code><b>-CMD_DB_lfv</b></code><br>&nbsp;<br> Command handler for <code>DB&#46;xtp</code>: Computes UASR least significant
+ secondary feature vector files files from signal files listed in
+ <code>&lt;uasr&#46;flist&#46;all&gt;</code>.
+      </td>
+    </tr>
+    <tr>
+      <td><a href="#clp_-CMD_DB_rnd"><code class="link">-CMD_DB_rnd</code></a></td>
+      <td><code><b>-CMD_DB_rnd</b></code><br>&nbsp;<br> Command handler for <code>DB&#46;xtp</code>: Generates 10-dimensional random
+ feature vector files of random length in the interval [250&#46;&#46;&#46;350]
+ for the files listed in <code>&lt;uasr&#46;flist&#46;all&gt;</code>.
+      </td>
+    </tr>
+  </table>
+  </div>
+  </div>
+  <div id="clp_-VAU_xfa">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td nowrap width="25%" class="navbar">
+        Function <span class="mid">-VAU_xfa</span>
+      </td>
+      <td nowrap width="75%" class="navbar" style="text-align:right;">
+        <a class="navbar" href="javascript:__PrintSection('clp_-VAU_xfa','-VAU_xfa','..');"><img
+        src="../resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;"
+        alt="Print"></a> 
+        <a class="navbar" href="#functions">Functions</a>
+        <a class="navbar" href="#">Script</a>
+        <a class="navbar" href="index.html">Package</a>
+        <a class="navbar" href="../automatic/kwdindex.html">Keyword Index</a>
+        <a class="navbar" href="../automatic/fncindex.html">Function Index</a>
+        <a class="navbar" href="../home.html">Home</a>
+      </td>
+    </tr>
+  </table>
+  <div class="mframe">
+  <table cellSpacing="0" cellPadding="0" border="0"> 
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Signature</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden"><code><b>-VAU_xfa</b>(sMode)</code></td>
+    </tr>
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Source</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">vau.itp(49)</td>
+    </tr>
+  </table>
+  </div>
+  <div class="mframe2">
+    <h3>Description</h3>Computes UASR feature vector files from the signal files listed in
+<code>&lt;uasr&#46;flist&#46;all&gt;</code>.
+
+
+  <h3>Parameters</h3>
+  <table>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden">string&nbsp;
+      </td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden"><code><b>sMode</b></code></td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden">Operation mode, one of the following
+<p><table>
+<tr>
+<td>"pfv"</td>
+<td>UASR primary features, see <a class="code"
+href="#clp_-CMD_DB_pfv">-CMD_DB_pfv</a></td>
+</tr>
+<tr>
+<td>"sfv" <sup>1)</sup></td>
+<td>UASR secondary features, see <a class="code"
+href="#clp_-CMD_DB_sfv">-CMD_DB_sfv</a></td>
+</tr>
+<tr>
+<td>"lfv" <sup>1)</sup></td>
+<td>UASR least significant secondary features, see
+<a class="code" href="#clp_-CMD_DB_lfv">-CMD_DB_lfv</a></td>
+</tr>
+<tr>
+<td>"rnd"</td>
+<td>Random features, see <a class="code"
+href="#clp_-CMD_DB_rnd">-CMD_DB_rnd</a></td>
+</tr>
+</table></p>
+<sup>1)</sup> Mode requires a feature information file
+<code>&lt;uasr.dir.model&gt;/feainfo.object</code> as generated by
+the UASR HMM training tool <code>HMM.xtp trn</code>.
+
+      </td>
+    </tr>  </table>
+    <h3>Return value</h3> 0 if successful, -1 otherwise.
+
+  <h3>Access to Configuration and Global Instances</h3>
+  <table>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.dir.data&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.dir.log&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.dir.model&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.dir.sig&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.flist.all&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.pfa.dim&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.sfa.dim&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>  </table>
+  </div>
+  </div>
+  <div id="clp_-VAU_GMM_FEA_get">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td nowrap width="25%" class="navbar">
+        Function <span class="mid">-VAU_GMM_FEA_get</span>
+      </td>
+      <td nowrap width="75%" class="navbar" style="text-align:right;">
+        <a class="navbar" href="javascript:__PrintSection('clp_-VAU_GMM_FEA_get','-VAU_GMM_FEA_get','..');"><img
+        src="../resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;"
+        alt="Print"></a> 
+        <a class="navbar" href="#functions">Functions</a>
+        <a class="navbar" href="#">Script</a>
+        <a class="navbar" href="index.html">Package</a>
+        <a class="navbar" href="../automatic/kwdindex.html">Keyword Index</a>
+        <a class="navbar" href="../automatic/fncindex.html">Function Index</a>
+        <a class="navbar" href="../home.html">Home</a>
+      </td>
+    </tr>
+  </table>
+  <div class="mframe">
+  <table cellSpacing="0" cellPadding="0" border="0"> 
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Signature</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden"><code><b>-VAU_GMM_FEA_get</b>(iF,sSns,sMode,idFea)</code></td>
+    </tr>
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Source</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">vau.itp(150)</td>
+    </tr>
+  </table>
+  </div>
+  <div class="mframe2">
+    <h3>Description</h3> Imports a primary feature vector sequence for the GMM speaker classifier.
+ This function is intended to overload <code>-FEA_get</code>.
+ 
+
+  <h3>Parameters</h3>
+  <table>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden">file&nbsp;
+      </td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden"><code><b>iF</b></code></td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden">          File list instance
+
+      </td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden">string&nbsp;
+      </td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden"><code><b>sSns</b></code></td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden">          -- <em>ignored</em> --
+
+      </td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden">string&nbsp;
+      </td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden"><code><b>sMode</b></code></td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden">          -- <em>ignored</em> --
+
+      </td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden">data&nbsp;
+      </td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden"><code><b>idFea</b></code></td>
+      <td class="hidden">&nbsp;</td>
+      <td class="hidden">          Will be filled with the feature vector sequence
+
+      </td>
+    </tr>  </table>
+    <h3>Return value</h3> <code>TRUE</code> if successful, <code>FALSE</code> otherwise.
+
+  <h3>Access to Configuration and Global Instances</h3>
+  <table>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>.__sDirFea</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#0000FF">create</span>&nbsp;<span style="color:#008000">read</span>&nbsp;<span style="color:#D00000">write</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>.__sExtFea</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#0000FF">create</span>&nbsp;<span style="color:#008000">read</span>&nbsp;<span style="color:#D00000">write</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>.__nVauGmmfeaDim</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.dir.fea.&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><code>&lt;uasr.fea.ext&gt;</code></td>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><span style="color:#008000">read</span>&nbsp;</td>
+    </tr>  </table>
+  </div>
+  </div>
+  <div id="clp_-CMD_DB_pfv">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td nowrap width="25%" class="navbar">
+        Function <span class="mid">-CMD_DB_pfv</span>
+      </td>
+      <td nowrap width="75%" class="navbar" style="text-align:right;">
+        <a class="navbar" href="javascript:__PrintSection('clp_-CMD_DB_pfv','-CMD_DB_pfv','..');"><img
+        src="../resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;"
+        alt="Print"></a> 
+        <a class="navbar" href="#functions">Functions</a>
+        <a class="navbar" href="#">Script</a>
+        <a class="navbar" href="index.html">Package</a>
+        <a class="navbar" href="../automatic/kwdindex.html">Keyword Index</a>
+        <a class="navbar" href="../automatic/fncindex.html">Function Index</a>
+        <a class="navbar" href="../home.html">Home</a>
+      </td>
+    </tr>
+  </table>
+  <div class="mframe">
+  <table cellSpacing="0" cellPadding="0" border="0"> 
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Signature</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden"><code><b>-CMD_DB_pfv</b></code></td>
+    </tr>
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Source</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">vau.itp(199)</td>
+    </tr>
+  </table>
+  </div>
+  <div class="mframe2">
+    <h3>Description</h3> Command handler for <code>DB&#46;xtp</code>: Computes UASR primary feature
+ vector files from signal files listed in
+ <code>&lt;uasr&#46;flist&#46;all&gt;</code>. The primary feature type can be
+ configured through <code>&lt;uasr.pfa&gt;</code> (default is "MEL"). Output
+ files are written to
+ <code>&lt;uasr.dir.data&gt;/common/fea/pfv_&lt;uasr.pfa.dim&gt;</code>.
+ The output file format is plain text, each line containing one feature vector
+ of white space separated floats.
+ <h4>Example</h4>
+ <pre class="code">
+ cd $UASR_HOME-data/vau
+ DB.xtp pfv common/info/featureanalysis.cfg</pre>
+ 
+
+  <h3>See also</h3>
+  <table>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><a href="#clp_-CMD_DB_sfv">-CMD_DB_sfv</a>
+    </td>
+  </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><a href="#clp_-CMD_DB_lfv">-CMD_DB_lfv</a>
+    </td>
+  </tr>  </table>
+  </div>
+  </div>
+  <div id="clp_-CMD_DB_sfv">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td nowrap width="25%" class="navbar">
+        Function <span class="mid">-CMD_DB_sfv</span>
+      </td>
+      <td nowrap width="75%" class="navbar" style="text-align:right;">
+        <a class="navbar" href="javascript:__PrintSection('clp_-CMD_DB_sfv','-CMD_DB_sfv','..');"><img
+        src="../resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;"
+        alt="Print"></a> 
+        <a class="navbar" href="#functions">Functions</a>
+        <a class="navbar" href="#">Script</a>
+        <a class="navbar" href="index.html">Package</a>
+        <a class="navbar" href="../automatic/kwdindex.html">Keyword Index</a>
+        <a class="navbar" href="../automatic/fncindex.html">Function Index</a>
+        <a class="navbar" href="../home.html">Home</a>
+      </td>
+    </tr>
+  </table>
+  <div class="mframe">
+  <table cellSpacing="0" cellPadding="0" border="0"> 
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Signature</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden"><code><b>-CMD_DB_sfv</b></code></td>
+    </tr>
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Source</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">vau.itp(224)</td>
+    </tr>
+  </table>
+  </div>
+  <div class="mframe2">
+    <h3>Description</h3> Command handler for <code>DB&#46;xtp</code>: Computes UASR secondary feature
+ vector files files from signal fileslisted in
+ <code>&lt;uasr&#46;flist&#46;all&gt;</code>. The primary feature type can be
+ configured through <code>&lt;uasr.pfa&gt;</code> (default is "MEL"). Output
+ files are written to
+ <code>&lt;uasr.dir.data&gt;/common/fea/sfv_&lt;uasr.sfa.dim&gt;</code>. The
+ output file format is plain text, each line containing one feature vector of
+ white space separated floats.
+ <p><b>Note:</b> A feature information file
+ <code>&lt;uasr.dir.model&gt;/feainfo.object</code> as generated by the UASR
+ HMM training tool <code>HMM.xtp trn</code> is required.</p>
+ <h4>Example</h4>
+ <pre class="code">
+ cd $UASR_HOME-data/vau
+ DB.xtp sfv common/info/featureanalysis.cfg</pre>
+ 
+
+  <h3>See also</h3>
+  <table>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><a href="#clp_-CMD_DB_pfv">-CMD_DB_pfv</a>
+    </td>
+  </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><a href="#clp_-CMD_DB_lfv">-CMD_DB_lfv</a>
+    </td>
+  </tr>  </table>
+  </div>
+  </div>
+  <div id="clp_-CMD_DB_lfv">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td nowrap width="25%" class="navbar">
+        Function <span class="mid">-CMD_DB_lfv</span>
+      </td>
+      <td nowrap width="75%" class="navbar" style="text-align:right;">
+        <a class="navbar" href="javascript:__PrintSection('clp_-CMD_DB_lfv','-CMD_DB_lfv','..');"><img
+        src="../resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;"
+        alt="Print"></a> 
+        <a class="navbar" href="#functions">Functions</a>
+        <a class="navbar" href="#">Script</a>
+        <a class="navbar" href="index.html">Package</a>
+        <a class="navbar" href="../automatic/kwdindex.html">Keyword Index</a>
+        <a class="navbar" href="../automatic/fncindex.html">Function Index</a>
+        <a class="navbar" href="../home.html">Home</a>
+      </td>
+    </tr>
+  </table>
+  <div class="mframe">
+  <table cellSpacing="0" cellPadding="0" border="0"> 
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Signature</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden"><code><b>-CMD_DB_lfv</b></code></td>
+    </tr>
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Source</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">vau.itp(252)</td>
+    </tr>
+  </table>
+  </div>
+  <div class="mframe2">
+    <h3>Description</h3> Command handler for <code>DB&#46;xtp</code>: Computes UASR least significant
+ secondary feature vector files files from signal files listed in
+ <code>&lt;uasr&#46;flist&#46;all&gt;</code>. The least significant secondary
+ featues comprise the vector components discarded by the PCA. The primary
+ feature type can be configured through <code>&lt;uasr.pfa&gt;</code> (default
+ is "MEL"). Output files are written to
+ <code>&lt;uasr.dir.data&gt;/common/fea/lfv_&lt;dim&gt;</code> where
+ <code>dim</code> denotes the number of least significant features (depends on
+ the primary and secondary feature extraction settings). The output file
+ format is plain text, each line containing one feature vector of white space
+ separated floats.
+ <p><b>Note:</b> A feature information file
+ <code>&lt;uasr.dir.model&gt;/feainfo.object</code> as generated by the UASR
+ HMM training tool <code>HMM.xtp trn</code> is required.</p>
+ <h4>Example</h4>
+ <pre class="code">
+ cd $UASR_HOME-data/vau
+ DB.xtp lfv common/info/featureanalysis.cfg</pre>
+ 
+
+  <h3>See also</h3>
+  <table>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><a href="#clp_-CMD_DB_pfv">-CMD_DB_pfv</a>
+    </td>
+  </tr>
+    <tr>
+      <td class="hidden">&nbsp;&nbsp;</td>
+      <td class="hidden"><a href="#clp_-CMD_DB_sfv">-CMD_DB_sfv</a>
+    </td>
+  </tr>  </table>
+  </div>
+  </div>
+  <div id="clp_-CMD_DB_rnd">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td nowrap width="25%" class="navbar">
+        Function <span class="mid">-CMD_DB_rnd</span>
+      </td>
+      <td nowrap width="75%" class="navbar" style="text-align:right;">
+        <a class="navbar" href="javascript:__PrintSection('clp_-CMD_DB_rnd','-CMD_DB_rnd','..');"><img
+        src="../resources/print.gif" width="16" height="16" border="0" style="vertical-align:middle;"
+        alt="Print"></a> 
+        <a class="navbar" href="#functions">Functions</a>
+        <a class="navbar" href="#">Script</a>
+        <a class="navbar" href="index.html">Package</a>
+        <a class="navbar" href="../automatic/kwdindex.html">Keyword Index</a>
+        <a class="navbar" href="../automatic/fncindex.html">Function Index</a>
+        <a class="navbar" href="../home.html">Home</a>
+      </td>
+    </tr>
+  </table>
+  <div class="mframe">
+  <table cellSpacing="0" cellPadding="0" border="0"> 
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Signature</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden"><code><b>-CMD_DB_rnd</b></code></td>
+    </tr>
+    <tr>
+      <td class="hidden"></td>
+      <td class="hidden">&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">Source</td>
+      <td class="hidden">:&nbsp;&nbsp;&nbsp;</td>
+      <td class="hidden">vau.itp(269)</td>
+    </tr>
+  </table>
+  </div>
+  <div class="mframe2">
+    <h3>Description</h3> Command handler for <code>DB&#46;xtp</code>: Generates 10-dimensional random
+ feature vector files of random length in the interval [250&#46;&#46;&#46;350]
+ for the files listed in <code>&lt;uasr&#46;flist&#46;all&gt;</code>. Output
+ files are written to <code>&lt;uasr.dir.data&gt;/common/fea/rnd_10</code>.
+ The output file format is plain text, each line containing one feature vector
+ of white space separated floats.
+ <p>The function is intended for debugging the GMM  classifier. As there is
+ nothing to be learned from the generated features the classifier correctness
+ is expected to be equal to mere guessing (1/#speakers).</p>
+ <p><b>Note:</b> The <code>&lt;uasr.flist.all&gt;</code> file list is used.</p>
+ 
+
+  </div>
+  </div>
+<div class="footer">End of page</div>
+</body>
+</html>
+
