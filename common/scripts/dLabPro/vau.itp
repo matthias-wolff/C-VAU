@@ -67,7 +67,7 @@ function -VAU_xfa(sMode)
   var  sModDir; ( "model" ""   -CFG_get_path  ) sModDir =;                      # Get model folder
   var  sSigDir; ( "sig"   ""   -CFG_get_path  ) sSigDir =;                      # Get signal folder
   var  sLogDir; ( "log"   ""   -CFG_get_path  ) sLogDir =;                      # Get log folder
-  file iF;      ( "s02"   ""   -CFG_get_flist ) iF -set flist;                  # Complete file list
+  file iF;      ( "all"   ""   -CFG_get_flist ) iF -set flist;                  # Complete file list
   "sig.label" "none" -CFG_set;                                                  # Disable signal labeling
 
   ## Load models                                                                # -------------------------------------

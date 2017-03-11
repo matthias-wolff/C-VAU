@@ -1,0 +1,84 @@
+
+// UASR - UNIFIED APPROACH TO SIGNAL SYNTHESIS AND RECOGNITION
+// HMM.xtp
+// Process         : $HOSTNAME/62656
+// dLabPro VID     : dLabPro version 2.5.5 build 5101DDD656win32(ix86,32bit)release PID:62656
+// UASR VID        : CF4C8D6112
+// Includes        : ........... done
+// Configuration   : C:/Studium/Projekte/CommunicationsEngineering/uasr-data\vau\GMM\info\UCUI\e21\ucui_e21_sfv_24.cfg
+// Auto-overloads  : 
+//                   -SIG_import_wav
+// Database        : vm.de
+//                   Revision 28A25C98B4
+// Plug-in script  : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vm.de/common/scripts/dlabpro/vm.de.itp
+// Experiment      : GMM/exp/UCUI/e21/sfv_ucui_u21
+
+// HMM TRAINING
+   - Sensor list   : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vau/GMM/info/sensors.txt.
+// Evaluation mode : -HMM_assess (automatic)
+
+// Creating feature information object ... done (N=30, 30/0)
+// Creating HMMs ...... done (12 models, MSF=24, LSF=6)
+// Feature analysis I
+   - Model dir     : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vm.de/GMM/exp/UCUI/e21/sfv_ucui_u21/model (default, exists)
+   - Feature dir   : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vau/common/fea/sfv_24/s02 (config, exists)
+   - File list     : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vau/GMM/flists//UCUI/e21/ucui_e21_train.flst (config, exists)
+
+   - none -
+
+// Feature analysis II
+   - File list     : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vau/GMM/flists//UCUI/e21/ucui_e21_train.flst (config, exists)
+
+   Writing C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vm.de/GMM/exp/UCUI/e21/sfv_ucui_u21/model/feainfo.object ... ok.
+   Time: 0 s
+
+// Initializing 12 HMMs
+   - Model dir     : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vm.de/GMM/exp/UCUI/e21/sfv_ucui_u21/model (default, exists)
+   - Feature dir   : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vau/common/fea/sfv_24/s02 (config, exists)
+   - File list     : C:/Studium/Projekte/CommunicationsEngineering/uasr-data/vau/GMM/flists//UCUI/e21/ucui_e21_train.flst (config, exists)
+
+     1/200 - CEW________030: 
+     2/200 - CEW________030: 
+     3/200 - CEW________031: 
+     4/200 - CEW________031: 
+     5/200 - CEW________032: 
+     6/200 - CEW________032: 
+     7/200 - CEW________033: 
+     8/200 - CEW________033: 
+     9/200 - CEW________034: 
+     10/200 - CEW________034: 
+     11/200 - CEW________035: 
+     12/200 - CEW________035: 
+     13/200 - CEW________036: 
+     14/200 - CEW________036: 
+     15/200 - CEW________037: 
+     16/200 - CEW________037: 
+     17/200 - CEW________038: 
+     18/200 - CEW________038: 
+     19/200 - CEW________039: 
+     20/200 - CEW________039: 
+     21/200 - DAS________030: 
+     22/200 - DAS________030: 
+     23/200 - DAS________031: 
+     24/200 - DAS________031: 
+     25/200 - DAS________032: 
+     26/200 - DAS________032: 
+     27/200 - DAS________033: 
+     28/200 - DAS________033: 
+     29/200 - DAS________034: 
+     30/200 - DAS________034: 
+     31/200 - DAS________035: 
+     32/200 - DAS________035: 
+     33/200 - DAS________036: 
+     34/200 - DAS________036: 
+     35/200 - DAS________037: 
+     36/200 - DAS________037: 
+     37/200 - DAS________038: 
+---Interrupt requested. Press again to quit.---
+
+at C:/Studium/Projekte/CommunicationsEngineering/uasr/scripts/dlabpro/util/fea.itp(309)
+at C:/Studium/Projekte/CommunicationsEngineering/uasr/scripts/dlabpro/train/am.itp(1882)
+at C:/Studium/Projekte/CommunicationsEngineering/uasr/scripts/dlabpro/train/am.itp(313)
+at C:/Studium/Projekte/CommunicationsEngineering/uasr/scripts/dlabpro/HMM.xtp(1025)
+at C:/Studium/Projekte/CommunicationsEngineering/uasr/scripts/dlabpro/HMM.xtp(1212)
+dLabPro.-FEA_get> 

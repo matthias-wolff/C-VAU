@@ -1,0 +1,76 @@
+HMM Training
+============
+
+Config.: trn
+Date   : 2017-03-11
+dLabPro: dLabPro version 2.5.5 build 5101DDD656win32(ix86,32bit)release PID:55836
+UASR   : CF4C8D6112
+DB     : 90E941BD27
+Host   : $HOSTNAME
+
+Configuration Details
+=====================
+
+uasr.fea.ext = "txt";
+uasr.pfa = "pfv";
+uasr.sfa.dim = "30";
+uasr.pfa.dim = "30";
+uasr.exp =  "GMM/exp/UCUI/e22/pfv_ucui_u22";
+uasr.dir.fea =  "$UASR_HOME-data/vau/common/fea/pfv_30/s02";
+uasr.dir.log =  "$UASR_HOME-data/vau/GMM/log/UCUI/e22/pfv_30";
+uasr.gmm.mindet =  1E-60;
+uasr.vau.gmmfea =  "pfv";
+uasr.vau.gmmfea.dim =  30;
+uasr.flist.stat =  "/UCUI/e22/ucui_e22_train.flst";
+uasr.flist.stat_t =  "/UCUI/e22/ucui_e22_train.flst";
+uasr.flist.train =  "/UCUI/e22/ucui_e22_train.flst";
+uasr.flist.test =  "/UCUI/e22/ucui_e22_test.flst";
+uasr.db =  "vau";
+uasr.sfa =  "";
+uasr.dir.flists =  "$UASR_HOME-data/vau/GMM/flists";
+uasr.dir.info =  "$UASR_HOME-data/vau/GMM/info";
+uasr.am.train.split.num = 1;
+uasr.am.train.split =  2;
+uasr.am.train.ite0 =  0;
+uasr.am.train.ite1 =  5;
+uasr.am.train.ite2 =  5;
+uasr.sig.srate =  16000;
+uasr.sig.aquant =  16;
+uasr.sig.ext =  "wav";
+uasr.spp =  "none";
+uasr.fea.f0 =  FALSE;
+uasr.fea.pm =  FALSE;
+uasr.fea.pm.level =  2.0;
+uasr.fea.savecompressed =  TRUE;
+uasr.pfa.crate =  160;
+uasr.pfa.wlen =  400;
+uasr.pfa.len =  512;
+uasr.pfa.anaoptions =  "";
+uasr.pfa.synoptions =  "";
+uasr.sfa.delta =  "pattern";
+uasr.sfa.delta.dpat =  "1 0";
+uasr.sfa.delta.ddpat =  "1 0";
+uasr.am.sil =  3;
+uasr.am.gbg =  4;
+uasr.am.train.ite3 =  20;
+uasr.am.train.ite4 =  25;
+uasr.am.train.ite5 =  30;
+uasr.am.train.ite6 =  40;
+uasr.am.train.ite7 =  50;
+uasr.am.train.splitbest =  FALSE;
+uasr.am.mapexp =  0;
+uasr.am.train.split.minrc =  -1;
+uasr.am.model =  "0_0";
+
+
+Database include script
+=======================
+
+[none]
+
+Customization script
+====================
+
+[none]
+
+EOF

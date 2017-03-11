@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+	<INSTANCE name="idLog" class="data">
+		<FIELD name="cunit" type="char[10]" arrlen="10"></FIELD>
+		<FIELD name="rwid" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="descr3" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="cofs" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="runit" type="char[10]" arrlen="10">ms</FIELD>
+		<FIELD name="cinc" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="nrec" type="int">13</FIELD>
+		<FIELD name="maxrec" type="int">13</FIELD>
+		<FIELD name="dim" type="int">4</FIELD>
+		<FIELD name="rtext" type="text"></FIELD>
+		<FIELD name="noffset" type="int">0</FIELD>
+		<FIELD name="descr0" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="rinc" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="descr1" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="descr4" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="ftext" type="text"></FIELD>
+		<FIELD name="rofs" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="nblock" type="int">0</FIELD>
+		<FIELD name="vrtext" type="text"></FIELD>
+		<FIELD name="reclen" type="int">279</FIELD>
+		<FIELD name="vunit" type="char[10]" arrlen="10"></FIELD>
+		<FIELD name="descr2" type="double">0.0000000000000000e+000</FIELD>
+		<FIELD name="check" type="short">0</FIELD>
+		<TABLE name="-HMM_assess_global_log.idLog.~table">
+			<COMP name="" type="double"/>
+			<COMP name="" type="double"/>
+			<COMP name="" type="double"/>
+			<COMP name="" type="char[255]"/>
+			<REC>
+				<CELL>8.2499999999999996e-001</CELL>
+				<CELL>8.7497608923289361e-001</CELL>
+				<CELL>7.6511652937112240e-001</CELL>
+				<CELL>0_0</CELL>
+			</REC>
+			<REC>
+				<CELL>8.2499999999999996e-001</CELL>
+				<CELL>8.7497608923289361e-001</CELL>
+				<CELL>7.6511652937112240e-001</CELL>
+				<CELL>1_0</CELL>
+			</REC>
+			<REC>
+				<CELL>7.6500000000000001e-001</CELL>
+				<CELL>8.2192976540332996e-001</CELL>
+				<CELL>7.0003862735641564e-001</CELL>
+				<CELL>1_1</CELL>
+			</REC>
+			<REC>
+				<CELL>7.5000000000000000e-001</CELL>
+				<CELL>8.0839333037942041e-001</CELL>
+				<CELL>6.8403766667607280e-001</CELL>
+				<CELL>1_2</CELL>
+			</REC>
+			<REC>
+				<CELL>7.4500000000000000e-001</CELL>
+				<CELL>8.0385968480187253e-001</CELL>
+				<CELL>6.7872510336526881e-001</CELL>
+				<CELL>1_3</CELL>
+			</REC>
+			<REC>
+				<CELL>7.5500000000000000e-001</CELL>
+				<CELL>8.1291637392493832e-001</CELL>
+				<CELL>6.8936063414396165e-001</CELL>
+				<CELL>1_4</CELL>
+			</REC>
+			<REC>
+				<CELL>7.6000000000000001e-001</CELL>
+				<CELL>8.1742859610764396e-001</CELL>
+				<CELL>6.9469421435472267e-001</CELL>
+				<CELL>1_5</CELL>
+			</REC>
+			<REC>
+				<CELL>7.6000000000000001e-001</CELL>
+				<CELL>8.1742859610764396e-001</CELL>
+				<CELL>6.9469421435472267e-001</CELL>
+				<CELL>2_0</CELL>
+			</REC>
+			<REC>
+				<CELL>7.5500000000000000e-001</CELL>
+				<CELL>8.1291637392493832e-001</CELL>
+				<CELL>6.8936063414396165e-001</CELL>
+				<CELL>2_1</CELL>
+			</REC>
+			<REC>
+				<CELL>7.5500000000000000e-001</CELL>
+				<CELL>8.1291637392493832e-001</CELL>
+				<CELL>6.8936063414396165e-001</CELL>
+				<CELL>2_2</CELL>
+			</REC>
+			<REC>
+				<CELL>7.5000000000000000e-001</CELL>
+				<CELL>8.0839333037942041e-001</CELL>
+				<CELL>6.8403766667607280e-001</CELL>
+				<CELL>2_3</CELL>
+			</REC>
+			<REC>
+				<CELL>7.5000000000000000e-001</CELL>
+				<CELL>8.0839333037942041e-001</CELL>
+				<CELL>6.8403766667607280e-001</CELL>
+				<CELL>2_4</CELL>
+			</REC>
+			<REC>
+				<CELL>7.5000000000000000e-001</CELL>
+				<CELL>8.0839333037942041e-001</CELL>
+				<CELL>6.8403766667607280e-001</CELL>
+				<CELL>2_5</CELL>
+			</REC>
+		</TABLE>
+	</INSTANCE>
