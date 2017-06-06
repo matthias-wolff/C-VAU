@@ -1,20 +1,21 @@
 ## UASR class definition file
-## - Voice authentication database
+## - Verbmobil database (Voice authentication)
 ##
 ##   first  column: model name (speaker ID)
 ##   second column: number of HMM states (1 --> GMM)
 
-## authorized c-vau speaker
-CEW 1
-DAS 1
-IFE 1
-IKL 1
-JAH 1
-MBI 1
-MKA 1
-PGE 1
-SBA 1
-SWI 1
+## authorized vm.de speaker
+SIL 1
+HK1 1
+OSH 1
+ISS 1
+ABO 1
+AFC 1
+SIH 1
+AFB 1
+BGU 1
+BGE 1
+SIH 1
 _UNK_ 1
 
 ## EOF
