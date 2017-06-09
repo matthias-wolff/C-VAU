@@ -1,0 +1,118 @@
+#!/usr/bin/env dlabpro
+## Batch evaluation of Peter's VAU experiments for UCUI
+## Original version: [..]/btu/Administration/Projects/Bmbf/2014_Bmbf-UCUI/Meetings/20170314-Aachen_Statusseminar/Auswertung.xtp
+
+"$UASR_HOME/scripts/dlabpro/util/stat.itp" include;
+"$UASR_HOME/scripts/dlabpro/util/uasr.itp" include;
+"$UASR_HOME/scripts/dlabpro/util/var.itp"  include;
+
+## Evaluation of confusion matrix.
+##
+## @param sExp string Experiment name
+## @param idCmx  data Confusion matrix
+function -eval_cmx(sExp,idCmx)
+{
+  data idAux;                                                                   # Auxiliary data
+  var  nIdUbm;                                                                  # ID of UBM
+  var  TP1;
+  var  TP2;
+  var  TP; 
+  var  FP;
+  var  TN;
+  var  FN;
+  var  N;
+  var  n;
+  var  nRef;
+  var  nRec;
+  var  sMode; "plain" sMode =;
+  #var  sMode; "latex" sMode =;
+  
+  { "_UNK_" } :idCmx[idCmx.dim-1]: 0 0 idAux -gen_index; :idAux[0,0]: nIdUbm =; # Get class index of UBM
+  0 nRef =; nRef idCmx.nrec < while                                             # Loop over reference classes >>
+    0 nRec =; nRec idCmx.nrec < while                                           #   Loop over recognized classes >>
+      :n=idCmx[nRef,nRec];                                                      #     Get count
+      :N+=n;                                                                    #     Accumulate total count
+      :nRef==nIdUbm: if                                                         #     Should be rejected >>
+        :nRec==nIdUbm: if :TN+=n; else :FP+=n; end                              #       True negative or false positive
+      else                                                                      #     << Should be accepted >>
+        :nRec==nIdUbm: if                                                       #       Was rejected >>
+          :FN+=n;                                                               #         False negative
+        else                                                                    #       << Was accepted >>
+          :nRec==nRef: if :TP1+=n; else :TP2+=n; end                            #         True positive type 1 or 2
+        end                                                                     #       <<
+      end                                                                       #     <<
+      nRec ++=;                                                                 #     Next recognized class
+    end                                                                         #   <<
+    nRef ++=;                                                                   #   Next reference class
+  end                                                                           # <<
+  :TP=TP1+TP2:                                                                  # Compute total no. of true positives
+  
+  "\n$[sExp]"                                                -echo;
+  idCmx                                                     -print;
+  "\nEvaluation"                                             -echo;
+  "\n- N          : $[N]"                                    -echo;
+  "\n- TP1        : $[TP1]"                                  -echo;
+  "\n- TP2        : $[TP2]"                                  -echo;
+  "\n- FP         : $[FP]"                                   -echo;
+  "\n- TN         : $[TN]"                                   -echo;
+  "\n- FN         : $[FN]"                                   -echo;
+  "\n- -----------"                                          -echo;
+  "\n- Correctness:" :TP1+TN: N            sMode -STAT_print_quota;
+  "\n- ID quota   :" TP1      :TP1+TP2+FN: sMode -STAT_print_quota;
+  "\n- Precision  :" TP       :TP+FP:      sMode -STAT_print_quota;             # SEN (sensitivity)
+  "\n- Recall     :" TP       :TP+FN:      sMode -STAT_print_quota;             # REL (relevance)
+  "\n- FAR        :" FP       :FP+TN:      sMode -STAT_print_quota;
+  "\n- FRR        :" FN       :TP+FN:      sMode -STAT_print_quota;
+  "\n- F-Measure  :" :2*TP:   :2*TP+FN+FP: sMode -STAT_print_quota;             # 2*(REL*SEN)/(REL+SEN)
+  "\n- --(Peter)--"                                          -echo;
+  "\n- Cor. accept:" TP1      N            sMode -STAT_print_quota;
+  "\n- Fal. accept:" :TP2+FP: N            sMode -STAT_print_quota;
+  "\n- Cor. reject:" TN       N            sMode -STAT_print_quota;
+  "\n- Fal. reject:" FN       N            sMode -STAT_print_quota;
+  "\n"                                                       -echo;
+}
+
+## == MAIN PROGRAM ============================================================
+
+data idCmx;
+var sDirLog;
+
+## Peter's Experiments
+"$UASR_HOME-data/vau/GMM/log.reference/UCUI" sDirLog =;                         # "old" results
+#"$UASR_HOME-data/vau/GMM/log/UCUI"           sDirLog =;                         # "new" results
+"\n$[sDirLog]\n" -echo;
+"$[sDirLog]/e11/pfv_30/hmm-1_1_assess-cmx.dn3" idCmx -restore; "Experiment 1.1" idCmx -eval_cmx;
+"$[sDirLog]/e21/pfv_30/hmm-1_0_assess-cmx.dn3" idCmx -restore; "Experiment 2.1" idCmx -eval_cmx;
+"$[sDirLog]/e21/sfv_24/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 4.1" idCmx -eval_cmx;
+"$[sDirLog]/e12/pfv_30/hmm-1_0_assess-cmx.dn3" idCmx -restore; "Experiment 1.2" idCmx -eval_cmx;
+"$[sDirLog]/e22/pfv_30/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 2.2" idCmx -eval_cmx;
+"$[sDirLog]/e22/sfv_24/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 4.2" idCmx -eval_cmx;
+"$[sDirLog]/e13/pfv_30/hmm-1_0_assess-cmx.dn3" idCmx -restore; "Experiment 1.3" idCmx -eval_cmx;
+"$[sDirLog]/e23/pfv_30/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 2.3" idCmx -eval_cmx;
+"$[sDirLog]/e23/sfv_24/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 4.3" idCmx -eval_cmx;
+"$[sDirLog]/e24/pfv_30/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 2.4" idCmx -eval_cmx;
+"$[sDirLog]/e24/sfv_24/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 4.4" idCmx -eval_cmx;
+
+## Experiments migrated to UCUI database
+# TODO: ...
+
+## Comparison of pfv and sfv features
+#"\nExperiment 2.1 vs 4.1 (counts taken from print-outs above)"   -echo;
+#"\n- Correctness: p=" ( 100 100  99 100 -STAT_quotas_equal_p ) + -echo; 
+#"\n- ID quota   : p=" ( 100 100  99 100 -STAT_quotas_equal_p ) + -echo;
+#"\n- Precision  : p=" ( 100 100  99 100 -STAT_quotas_equal_p ) + -echo;
+#"\n- Recall     : p=" ( 100 100  99 100 -STAT_quotas_equal_p ) + -echo;
+#"\n- FAR        : ---"                                           -echo;
+#"\n- FRR        : p=" (   0 100   1 100 -STAT_quotas_equal_p ) + -echo;
+#
+#"\n\nExperiment 2.4 vs 4.4 (counts taken from print-outs above)" -echo;
+#"\n- Correctness: p=" ( 165 200 171 200 -STAT_quotas_equal_p ) + -echo; 
+#"\n- ID quota   : p=" ( 100 100  99 100 -STAT_quotas_equal_p ) + -echo;
+#"\n- Precision  : p=" ( 100 135  99 127 -STAT_quotas_equal_p ) + -echo;
+#"\n- Recall     : p=" ( 100 100  99 100 -STAT_quotas_equal_p ) + -echo;
+#"\n- FAR        : p=" (  35 100  28 100 -STAT_quotas_equal_p ) + -echo;
+#"\n- FRR        : p=" (   0 100   1 100 -STAT_quotas_equal_p ) + -echo;
+
+quit
+
+## EOF
