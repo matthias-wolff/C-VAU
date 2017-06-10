@@ -29,7 +29,7 @@
 ## along with UASR. If not, see <http://www.gnu.org/licenses/>.
 
 "$UASR_HOME/scripts/dlabpro/util/@.itp" include;
-"$UASR_HOME-data/vau/common/scripts/dLabPro/vmVau.itp" include;
+"$UASR_HOME-data/vau/common/scripts/dlabpro/vmVau.itp" include;
 
 ## Prints help on usage
 ##
