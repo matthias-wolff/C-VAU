@@ -15,7 +15,6 @@ SIH 1
 AFB 1
 BGU 1
 BGE 1
-SIH 1
 _UNK_ 1
 
 ## EOF
