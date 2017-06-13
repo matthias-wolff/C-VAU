@@ -12,7 +12,7 @@
 ## @param idCmx  data Confusion matrix
 function -eval_cmx(sExp,idCmx)
 {
-  data idAux;                                                                   # Auxiliary data
+  data idAux;     	                                                            # Auxiliary data
   var  nIdUbm;                                                                  # ID of UBM
   var  TP1;
   var  TP2;
@@ -78,8 +78,8 @@ data idCmx;
 var sDirLog;
 
 ## Peter's Experiments
-"$UASR_HOME-data/vau/GMM/log.reference/UCUI" sDirLog =;                         # "old" results
-#"$UASR_HOME-data/vau/GMM/log/UCUI"           sDirLog =;                         # "new" results
+#"$UASR_HOME-data/vau/GMM/log.reference/UCUI" sDirLog =;                         # "old" results
+"$UASR_HOME-data/vau/GMM/log/UCUI"           sDirLog =;                         # "new" results
 "\n$[sDirLog]\n" -echo;
 "$[sDirLog]/e11/pfv_30/hmm-1_1_assess-cmx.dn3" idCmx -restore; "Experiment 1.1" idCmx -eval_cmx;
 "$[sDirLog]/e21/pfv_30/hmm-1_0_assess-cmx.dn3" idCmx -restore; "Experiment 2.1" idCmx -eval_cmx;
@@ -92,9 +92,6 @@ var sDirLog;
 "$[sDirLog]/e23/sfv_24/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 4.3" idCmx -eval_cmx;
 "$[sDirLog]/e24/pfv_30/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 2.4" idCmx -eval_cmx;
 "$[sDirLog]/e24/sfv_24/hmm-0_0_assess-cmx.dn3" idCmx -restore; "Experiment 4.4" idCmx -eval_cmx;
-
-## Experiments migrated to UCUI database
-# TODO: ...
 
 ## Comparison of pfv and sfv features
 #"\nExperiment 2.1 vs 4.1 (counts taken from print-outs above)"   -echo;
