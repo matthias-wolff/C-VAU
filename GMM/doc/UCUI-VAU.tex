@@ -1,0 +1,458 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{essv}
+% veraltet: \usepackage{times}
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{slashbox}
+\usepackage{enumerate}
+\usepackage[]{algorithm2e}
+%
+\pagestyle{empty}
+\usepackage{ngerman}
+\selectlanguage{ngerman}
+\usepackage{bibgerm}
+\usepackage[ansinew]{inputenc}
+
+%
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage[pdftex]{graphicx}
+  \DeclareGraphicsExtensions{.pdf,.jpg,.png,.mps}
+  \usepackage[pdftex]{color}
+  \pdfcompresslevel=9
+\else
+  \usepackage{graphicx}
+  \DeclareGraphicsExtensions{.pstex,.eps,.mps}
+  \usepackage[dvips]{color}
+\fi
+\usepackage{epstopdf}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usetikzlibrary{patterns}
+
+% Grafikpfade
+\graphicspath{{pictures/}}
+%
+\begin{document}
+\title{
+  UCUI - Nutzeridentifikation Arbeitspaket 3.5 
+}
+\author{
+  Peter Ge\ss ler\\[6pt]
+  Brandenburgische Technische Universit\"at\\
+  gessler\_peter@outlook.de
+}
+\maketitle
+
+\thispagestyle{empty}
+\begin{abstract}
+  Der vorliegende Report beinhaltet die Beschreibung und Auswertung einer
+  textunabh\"angigen Nutzeridentifikation. Diese ist Gegenstand des
+  Arbeitspaketes 3.5 im Projekt \textsl{Universal Cognitive User Interface}
+  (UCUI). Mit dieser Untersuchung sollte nachgewiesen werden, inwiefern sich
+  die vom \textsl{dLabPro} verwendeten \textsl{primary feature vectors (pfv)} zur
+  textunabh\"angigen Nutzeridentifikation und -verifikation eignen. Jede Person,
+  die zur Bedienung des Systems berechtigt ist, wird
+  durch ein \textsl{Gaussian Mixture Model} (GMM) repr\"asentiert. F\"ur die
+  R\"uckweisung unberechtigter Sprecher dient ein \textsl{Universal Background
+  Model} (UBM).  Als Datenbasis diente der Verbmobil Korpus und die
+  Datenbasis C-VAU \cite{2}.
+\end{abstract}
+
+\section{Untersuchungen - Verbmobil Datenbasis - pfv-Merkmale}
+
+\subsection*{Aufbau}
+Der Versuchsaufbau beinhaltete jeweils $10$ berechtigte und nicht
+berechtigte Sprecher. Aufgrund der Anonymisierung aller Daten innerhalb des Verbmobil Korpus
+kann keine Aussage hinsichtlich der Geschlechterverteilung getroffen werden. Die
+Merkmalanalyse der Sprachdaten erfolgte mit den \textsl{default}-Einstellungen des
+Spracherkenners. Dieser erzeugt \textsl{pfv}-Merkmale mit $30$ Dimensionen anhand
+einer vordefinierten \textsl{MEL-Filterbank}. Die Auswahl der Sprachdaten pro
+Sprecher fand sitzungs- und dialog\"ubergreifend statt. Es wurden jedoch nur
+Sprachdaten von Sprechern ausgew\"ahlt, die mittels Headset aufgenommen wurden.
+Jedes Sprechermodell (GMM) ist aus $10$ zuf\"allig gezogenen Spracheingaben
+(Java-Skript mit \textsl{Random}-Funktion zur Auswahl der Daten) pro
+berechtigtem Sprecher generiert worden. F\"ur die R\"uckweisung unberechtigter
+Sprecher existiert ein 11. GMM. Das Training des UBM erfolgte mit den
+ausgew\"ahlten Sprachdaten aller berechtigten Sprecher. Die einzelnen
+Sprechermodelle wurden anschließend durch den \textsl{EM-Algorithmus} optimiert.
+In den folgenden Experimenten konnte der Klassifikator zu jeder Äußerung aus dem
+Testdatensatz genau ein Sprechermodell von den $11$ vorhandenen auswählen.
+
+\subsection*{Experiment 1.1 - geschlossene Nutzeridentifikation/-verifikation}
+Mit der geschlossenen Nutzeridentifikation ist zun\"achst die Leistungsf\"ahigkeit
+der einzelnen Sprechermodelle gegen\"uber dem UBM getestet worden. Daf\"ur
+dienten zum Test jeweils $20$ zuf\"allig gezogene Sprachdaten pro
+berechtigtem Sprecher. Es stellte sich heraus, dass die Verwendung eines GMM's
+mit zwei Normalverteilungen und einem Iterationsschritt mit $94_{-4.2}^{+2.9}~\%$ das
+beste Ergebnis erzielte. Es existiert jedoch kein signifikanter Unterschied
+hinsichtlich eines GMM's mit einer Normalverteilung ohne Iteration
+$93.5_{-4.4}^{+3.0}~\%$.
+
+\subsection*{Experiment 1.2 - R\"uckweisung nicht berechtigter Sprecher}
+Ziel des Experiments ist die R\"uckweisung durch den Spracherkenner aller
+Sprachdaten. Diese stammen von nicht berechtigten Sprechern und sind dem UBM
+zugeordnet. Mit der Auswahl des UBM Sprechermodells erfolgt im konkreten System
+eine Zur\"uckweisung der Anweisung. F\"ur das Training sind $20$ Sprachdaten pro
+nicht berechtigtem Sprecher verwendet worden. Die Auswahl des UBM erfolgte in
+$64.0_{-7.1}^{+6.6}~\%$ aller F\"alle mit zwei Normalverteilungen pro
+Sprechermodell und ohne Iteration. Jede h\"ohere Ordnung der Normalverteilungen
+erzeugte eine rapide Verschlechterung des Erkennungsergebnisses.
+
+\subsection*{Experiment 1.3 - offene Nutzeridentifikation/-verifikation}
+F\"ur die offene Nutzeridentifikation/-verifikation sind alle Testdaten der
+berechtigten und nicht berechtigten Personen verwendet worden. Dieses Szenario
+entspricht dem m\"oglichen Anwendungsfall am ehesten. Mit $74.5_{-4.5}^{+4.1}~\%$
+erzielte die Konfiguration -- zwei Normalverteilungen ohne Iteration -- das
+h\"ochste Erkennungsergebnis. Die Verwendung einer einfachen Normalverteilung ohne
+Iteration ist ebenfalls m\"oglich $74.0_{-4.5}^{+4.1}~\%$
+
+\subsection*{Auswertung - Verbmobil}
+
+\pgfplotstableread[col sep=comma,header=false]{
+E11,94,0,0,6
+E12,0,36,64,0
+E13,48.57,19.2,27.0,1.67
+}\data
+
+\pgfplotstablecreatecol[
+create col/expr={
+    \thisrow{1} + \thisrow{2} + \thisrow{3} + \thisrow{4} 
+}
+]{sum}{\data}
+\pgfplotsset{
+percentage plot/.style={
+    point meta=explicit,
+every node near coord/.append style={
+    align=center,
+    text width=1cm
+},
+    nodes near coords={
+    \pgfmathtruncatemacro\iszero{\originalvalue==0}
+    \ifnum\iszero=0
+        \pgfmathprintnumber{\originalvalue}$\,\%$\\ \pgfmathprintnumber[fixed zerofill,precision=1]{\pgfplotspointmeta}
+    \fi},
+nodes near coords align=vertical,
+    yticklabel=\pgfmathprintnumber{\tick}\,$\%$,
+    ymin=0,
+    ymax=100,
+    enlarge y limits={upper,value=0},
+visualization depends on={y \as \originalvalue}
+},
+percentage series/.style={
+    table/y expr=\thisrow{#1},table/meta=#1
+}
+}
+\vspace{0.2cm}
+\begin{tikzpicture}
+\begin{axis}[
+title style={at={(0.5,-0.15)},anchor=north,yshift=0.0},
+title=Auswertung der Nutzeridentifikations-Experimente  mit Verbmobil., axis on
+top, width=14cm,
+height=12cm,
+ylabel=Ergebnis in Prozent,
+xlabel=Experimente,
+percentage plot,
+ybar=0pt,
+bar width=0.75cm,
+enlarge x limits=0.25,
+symbolic x coords={E11, E12, E13},
+xtick=data
+]
+\addplot table [percentage series=1] {\data};
+\addplot table [percentage series=2] {\data};
+\addplot table [percentage series=3] {\data};
+\addplot table [percentage series=4] {\data};
+\legend{korrekt angenommen, falsch angenommen, korrekt abgewiesen, falsch
+abgewiesen}
+\end{axis}
+\end{tikzpicture}
+
+Die Erkennungsergebnisse unter der Verwendung von pfv-Merkmalen und GMMs sowie
+einem Maximum-Likelihood Klassifikator sind durchaus beachtenswert. Das
+Verfahren eignet sich vor allem f\"ur die
+\textsl{closed}-Nutzeridentifikation/-verifikation. Selbst bei spezifischen
+Merkmalen f\"ur die Nutzeridentifikation liegen die Erkennungsquoten im Bereich
+$96 - 98 \%$. Probleme bestehen jedoch in der Zur\"uckweisung nicht berechtigter
+Sprecher (siehe Experiment 1.2).
+Durch die Anonymisierung aller Sprachdaten konnte nicht bestimmt werden, ob ein
+Geschlecht besonders h\"aufig zur\"uckgewiesen oder falsch zugeordnet wird. Des
+Weiteren kann nicht der Einfluss sprachlicher Aspekte ermittelt werden, weil die
+Aussagen der einzelnen Sprecher unterschiedlich sind. F\"ur weiterf\"uhrende
+Erkenntnisse hinsichtlich der Verwendung von pfv-Merkmalen zur
+textunabh\"angigen Nutzeridentifikation/-verifikation dienten Untersuchungen
+mit der C-VAU Datenbasis.
+
+\section{Untersuchungen - C-VAU Datenbasis pfv-Merkmale}
+
+\subsection*{Aufbau}
+Der C-VAU Korpus ist ausf\"uhrlich in dem Beitrag \cite{2} erl\"autert. F\"ur die
+Nutzeridentifikation/-verifikation sind die Probanden in $10$ berechtigte und
+$10$ nicht berechtigte Sprecher unterteilt worden. Es handelt sich dabei um $6$
+berechtigte M\"anner und $4$ berechtigte Frauen sowie $5$ nicht berechtigte M\"anner
+und $5$ nicht berechtigte Frauen. Zum Training der GMM Sprechermodelle sind pro
+berechtigtem Sprecher $10$ Sprachdaten gezogen, die jeweils identisch zueinander
+sind (berechtigte Sprecher $1$ bis $10$ haben denselben Satz gesagt). 
+Alle Aufnahmen einer Person erfolgten innerhalb einer Sitzung. Zur
+Aufnahme der Sprachdaten diente ein \textsl{Rode NT-1 A} Mikrofon sowie eine
+\textsl{Focusrite Scarlett 8i6}. Weitere Details zu den Aufnahmen sind in \ldots
+beschrieben. Das UBM ist ebenfalls aus allen verwendeten Sprachdaten der
+berechtigten Sprecher generiert und kann neben den $10$ Sprechermodellen vom
+Klassifikator ausgewählt werden.
+
+\subsection*{Experiment 2.1 - geschlossene Nutzeridentifikation/-verifikation}
+F\"ur die geschlossene Nutzeridentifikation/-verifikation wurden pro
+berechtigtem Sprecher $10$ Sprachaufnahmen ausgew\"ahlt. Es sollte ebenfalls wie
+in Experiment 1.1 die Leistungsf\"ahigkeit der einzelnen Sprechermodelle
+und des Klassifikators gegen\"uber dem UBM getestet werden.
+
+Die Zuordnungen der einzelnen Sprach\"außerungen eines berechtigten
+Sprechers zu seinem Sprechermodell erfolgte zu $100.0_{-0.0}^{+0.0}~\%$
+korrekt. Dies trifft sowohl bei der Verwendung einer Normalverteilung oder zwei
+Normalverteilungen pro Sprechermodell zu. Der EM-Algorithmus f\"uhrt hingegen zu
+einer Verschlechterung des Erkennungsergebnisses.
+
+\subsection*{Experiment 2.2 - R\"uckweisung nicht berechtigter Sprecher 1}
+Im Gegensatz zum Experiment 2.1 \"au\ss erten die nicht berechtigten Personen in
+2.2 genau dieselben S\"atze, welche die berechtigten Sprecher zur Generierung ihrer
+Sprechermodelle verwendeten. Es l\"asst sich somit eine Aussage zur Robustheit
+der pfv-Merkmale hinsichtlich der sprecherspezifischen Eigenschaften treffen. F\"ur
+eine ideale Nutzeridentifikation/-verifikation sollte eine Zuweisung aller
+Testdaten zum UBM stattfinden.
+Die Auswahl des UBM erfolgte vom Klassifikator in $69.0_{-10.0}^{+8.9}~\%$ aller
+F\"alle bei einer Normalverteilung pro Sprechermodell. Zwei nicht berechtigte weibliche
+Probandinnen wurden \"uberwiegend falsch zugeordnet (zu zwei berechtigten
+weiblichen Probandinnen).
+
+\subsection*{Experiment 2.3 - R\"uckweisung nicht berechtigter Sprecher 2}
+Ein direkter Vergleich zu Experiment 1.2 erfolgte durch die Verwendung von
+Sprachdaten, deren S\"atze nicht identisch mit den der Trainingsdaten aller
+berechtigten Sprecher waren. Pro nicht berechtigtem Sprecher enth\"alt der
+Testdatensatz $10$ Sprachaufnahmen.
+Mit $65.0_{-10.2}^{+9.3}~\%$ konnte das h\"ochste Ergebnis bei der Verwendung
+einer Normalverteilung pro Sprecher erreicht werden. Wie bereits in Experiment
+2.2 sind die beiden nicht berechtigten weiblichen Probandinnen zwei berechtigten
+zugeordnet worden. Des Weiteren ordnete der Klassifikator ein nicht
+berechtigten m\"anlichen Proband f\"alschlicherweise abwechselnd zwei
+berechtigten m\"annlichen Probanden zu.
+
+\subsection*{Experiment 2.4 - offene Nutzeridentifikation/-verifikation}
+Experiment 2.4 schließt die Untersuchung vorerst ab und bietet
+einen ersten Eindruck hinsichtlich des aufgestellten Anwendungsszenarios.
+Daf\"ur dienten jeweils $10$ \"Außerungen pro berechtigtem sowie nicht berechtigtem Sprecher.
+Bei der Verwendung von Sprach\"außerungen berechtigter und nicht berechtigter
+Sprecher konnte der Klassifikator mit einer Normalverteilung pro Sprechermodell
+eine Erkennungsquote von $82.5_{-6.0}^{+5.0}~\%$ erreichen.
+
+\subsection*{Auswertung - C-VAU mit pfv-Merkmale}
+
+\pgfplotstableread[col sep=comma,header=false]{
+E21,100,0,0,0
+E22,0,31,69,0
+E23,0,35,65,0
+E24, 50, 17.5,32.5,0
+}\data
+
+\pgfplotstablecreatecol[
+create col/expr={
+    \thisrow{1} + \thisrow{2} + \thisrow{3} + \thisrow{4} 
+}
+]{sum}{\data}
+\pgfplotsset{
+percentage plot/.style={
+    point meta=explicit,
+every node near coord/.append style={
+    align=center,
+    text width=1cm
+},
+    nodes near coords={
+    \pgfmathtruncatemacro\iszero{\originalvalue==0}
+    \ifnum\iszero=0
+        \pgfmathprintnumber{\originalvalue}$\,\%$\\ \pgfmathprintnumber[fixed zerofill,precision=1]{\pgfplotspointmeta}
+    \fi},
+nodes near coords align=vertical,
+    yticklabel=\pgfmathprintnumber{\tick}\,$\%$,
+    ymin=0,
+    ymax=100,
+    enlarge y limits={upper,value=0},
+visualization depends on={y \as \originalvalue}
+},
+percentage series/.style={
+    table/y expr=\thisrow{#1},table/meta=#1
+}
+}
+\vspace{0.2cm}
+\begin{tikzpicture}
+\begin{axis}[
+title style={at={(0.5,-0.15)},anchor=north,yshift=0.0},
+title=Auswertung der Experimente  mit C-Vau und pfv-Merkmalen., axis on
+top, width=14cm,
+height=12cm,
+ylabel=Ergebnis in Prozent,
+xlabel=Experimente,
+percentage plot,
+ybar=0pt,
+bar width=0.75cm,
+enlarge x limits=0.25,
+symbolic x coords={E21, E22, E23, E24},
+xtick=data
+]
+\addplot table [percentage series=1] {\data};
+\addplot table [percentage series=2] {\data};
+\addplot table [percentage series=3] {\data};
+\addplot table [percentage series=4] {\data};
+\legend{korrekt angenommen, falsch angenommen, korrekt abgewiesen, falsch
+abgewiesen}
+\end{axis}
+\end{tikzpicture}
+
+Durch Experiment 2.4 konnte gezeigt werden, dass sich pfv-Merkmale
+durchaus f\"ur die textunabh\"angige m\"annliche Nutzeridentifikation/-verifikation
+eignen. Da ich die in Experiment 2.3 und 2.4 genannten Probandinnen
+pers\"onlich kenne, trifft nach subjektiver Einsch\"atzung durchaus die Aussage
+zu, dass sich jeweils die nicht berechtigte und berechtigte Probandin \glqq gleich anh\"oren\grqq.
+
+\section{Bewertung der Untersuchungen}
+pfv-Merkmale lassen sich unter den gegebenen Bedingungen durchaus für die
+Nutzeridentifikation einsetzen. Es sollte jedoch darauf geachtet werden, dass
+die Anzahl der Sprechermodelle möglichst gering ist und im Idealfall einer
+\textsl{closed}-Nutzeridentifikation/-verifikation mit UBM entspricht. Dies
+kann zum Beispiel bei Heimautomatisierungssystemen der Fall sein, bei dem jeder
+berechtigte Sprecher nur eine Teilmenge von Aktionen ausführen darf.
+pfv-Merkmale sind keine typischen Nutzeridentifikations/-verifikations
+Merkmale wie zum Beispiel \textsl{Mel Frequency Cepstral Coefficients} (MFCC).
+Des Weiteren repräsentieren sie nicht sprecherspezifische Eigenschaften 1. oder
+2. Ordnung. Untersuchung diesbezüglich erfolgten vorerst nicht. Neben der
+falschen Klassifikation in Experiment 2.3 und 2.4 ist die Robustheit der
+pfv-Merkmale bei sitzungsübergreifender Klassifikation fraglich. Dieses Szenario
+sollte jedoch erst mit einem konkreten Prototyp getestet werden. Neben den
+bereits genannten Faktoren ist ebenfalls der Einfluss aller zum Training
+ausgewählten Sprachdaten vorerst nicht messbar. Der Einsatz von pfv-Merkmalen in
+\textbf{sicherheitskritischen Systemen} mit einer gro\ss en Anzahl m\"annlicher
+und weiblicher Sprecher ist somit \underline{\textbf{nicht zu empfehlen}}.
+Weitere Experimente hinsichtlich des Einflusses der zum Training verwendeten Sprachdaten, der
+fehlerhaften Zuweisung weiblicher nicht berechtigter Probandinnen und der
+Verwendung von sfv-Merkmalen zur Nutzeridentifikation/-verifikation stehen
+noch aus. Zur Eliminierung der Kanaleigenschaften wird jedoch bereits jetzt die
+Anwendung des \textsl{Mittelwertsubtraktion} (MS) nach \cite{1} empfohlen.
+
+\section{Erweiterte Untersuchung sfv-Merkmale C-VAU Datenbasis}
+Neben den pfv-Merkmalen sollte anschlie\ss end stichpunktartig die
+Leistungsf\"ahigkeit der sfv-Merkmale, welche prim\"ar zur Spracherkennung
+dienen, für die textunabh\"angige Nutzeridentifikation bzw. -verifikation
+getesten werden. Dazu sind die Experimente 2.1 - 2.4 mit den sfv-Merkmalen
+wiederholt worden.
+
+\subsection*{Experiment 3.1 - geschlossene Nutzeridentifikation/-verifikation}
+Bereits die geschlossene Nutzeridentifikation weist mit den sfv-Merkmalen
+geringe Abweichungen ($99.0_{-4.4}^{+1.0}~\%$) gegen\"uber
+dem Klassifikationsergebnis mit pfv-Merkmalen auf. Hierbei handelt es sich um
+die fehlerhafte Auswahl des UBM.
+
+\subsection*{Experiment 3.2 - R\"uckweisung nicht berechtigter Sprecher 1}
+Bei der R\"uckweisung nicht berechtigter Sprecher kam es zu einer minimalen
+Verbesserung ($72.0_{-9.9}^{+8.5}~\%$) des Klassifikationsergebnis gegenüber der
+Klassifikation mit pfv-Merkmalen $69.0_{-10.0}^{+8.9}~\%$. Im Gegensatz zur
+Klassifikation mit pfv-Merkmalen sind die False Negative
+Erkennungen nicht auf zwei Probandinnen begrenzt sonder liegen verstreut vor.
+
+\subsection*{Experiment 3.3 - R\"uckweisung nicht berechtigter Sprecher 2}
+Bei der textunabh\"angigen Nutzeridentifikation/-verifikation mit S\"atzen die
+nicht zum Training der Sprechermodelle verwendet worden, erzielen die
+sfv-Merkmale mit $72.0_{-9.9}^{+8.5}~\%$ eine Erkennungsquote die numerisch
+$7~\%$ h\"oher ist als die der pfv-Merkmale ($65.0_{-10.2}^{+9.3}~\%$).
+Die False Negative Erkennungen liegen jedoch ebenfalls verstreut vor und können
+nicht auf bestimmte nutzerspezifische Eigenschaften zur\"uckgef\"uhrt werden.
+
+\subsection*{Experiment 3.4 - offene Nutzeridentifikation/-verifikation}
+Mit $85.5_{-5.7}^{+4.6}~\%$ liegt das Klassifikationsergebnis der sfv-Merkmale
+nur minimal über dem der pfv-Merkmale mit $82.5_{-6.0}^{+5.0}~\%$. Wegen der
+\"Uberlappung des Konfidenzintervalls kann jedoch von einer nicht vorhandenen
+Signifikanz ausgegangen werden.
+
+\subsection*{Auswertung C-VAU mit sfv-Merkmale}
+\pgfplotstableread[col sep=comma,header=false]{
+E41,99,0,0,1
+E42,0,28,72,0
+E43,0,28,72,0
+E44, 49.5,14.5,35.5,0.5
+}\data
+
+\pgfplotstablecreatecol[
+create col/expr={
+    \thisrow{1} + \thisrow{2} + \thisrow{3} + \thisrow{4} 
+}
+]{sum}{\data}
+\pgfplotsset{
+percentage plot/.style={
+    point meta=explicit,
+every node near coord/.append style={
+    align=center,
+    text width=1cm
+},
+    nodes near coords={
+    \pgfmathtruncatemacro\iszero{\originalvalue==0}
+    \ifnum\iszero=0
+        \pgfmathprintnumber{\originalvalue}$\,\%$\\ \pgfmathprintnumber[fixed zerofill,precision=1]{\pgfplotspointmeta}
+    \fi},
+nodes near coords align=vertical,
+    yticklabel=\pgfmathprintnumber{\tick}\,$\%$,
+    ymin=0,
+    ymax=100,
+    enlarge y limits={upper,value=0},
+visualization depends on={y \as \originalvalue}
+},
+percentage series/.style={
+    table/y expr=\thisrow{#1},table/meta=#1
+}
+}
+\vspace{0.2cm}
+\begin{tikzpicture}
+\begin{axis}[
+title style={at={(0.5,-0.15)},anchor=north,yshift=0.0},
+title=Auswertung der Experimente  mit C-Vau und sfv-Merkmalen., axis on
+top, width=14cm,
+height=14cm,
+ylabel=Ergebnis in Prozent,
+xlabel=Experimente,
+percentage plot,
+ybar=0pt,
+bar width=0.75cm,
+enlarge x limits=0.25,
+symbolic x coords={E41, E42, E43, E44},
+xtick=data
+]
+\addplot table [percentage series=1] {\data};
+\addplot table [percentage series=2] {\data};
+\addplot table [percentage series=3] {\data};
+\addplot table [percentage series=4] {\data};
+\legend{korrekt angenommen, falsch angenommen, korrekt abgewiesen, falsch
+abgewiesen}
+\end{axis}
+\end{tikzpicture}
+
+
+\section{Bewertung der Untersuchungen mit sfv-Merkmalen}
+Die Erkennungsquoten der Experimentdurchführungen mit sfv-Merkmalen liegen
+\"uber denen der pfv-Merkmale. Jedoch k\"onnen die vorhandenen False Negative
+und False Positive bei einer detaillierten Betrachtung nicht auf nutzerspezifsche
+Eigenschaften zur\"uckgef\"uhrt werden. Dementsprechend ist eine Verwendung der
+sfv-Merkmale zur Nutzeridentifikation/-verifikation unter den gegebenen
+Bedingungen nicht als sinnvoll zu erachten.
+
+% BibTeX standard bibliography style for use with `bibgerman.sty'
+% *.bib language field: language = "german" | "USenglish" | "english"
+\bibliographystyle{gerabbrv}
+\bibliography{ucui-vau}
+%
+% ABBRVDIN.BST wurde entwickelt aus Oren Patashnik's BibTeX standard
+% bibliography style `abbrv'. Eine vorgegebene Literaturdatenbank laesst sich
+% somit beliebig nach US- oder deutscher DIN 1505-Zitierkonvention verarbeiten.
+% \bibliographystyle{abbrvdin}
+%
+\end{document}

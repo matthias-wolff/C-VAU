@@ -1,0 +1,154 @@
+%
+%
+% the ESSV latex-style
+%
+%
+%
+
+% ---------------------------------------------------------------
+% with LaTeX2e:
+% =============
+%
+% use as
+%   \documentclass[12pt]{article}
+%   \usepackage{essv}
+%   \usepackage{times}
+%
+% ---------------------------------------------------------------
+
+% with LaTeX 2.09:
+% ================
+%
+% use as
+%   \documentstyle[times,essv]{article}
+%
+% ---------------------------------------------------------------
+% with both versions:
+% ===================
+%
+% specify \pagestyle{empty} to omit page numbers in the final
+% version
+%
+
+\typeout{ESSV LaTeX-Style}
+
+\AtBeginDocument{%
+  \@ifundefined{captionsngerman}{\typeout{no ngerman}%
+    \@ifundefined{captionsgerman}{\typeout{no german}%
+      \def\essvabstractname{Abstract}}{\typeout{german}%
+      \def\essvabstractname{Kurzfassung}}}{\typeout{ngerman}%
+      \def\essvabstractname{Kurzfassung}}}%
+
+\renewcommand\Large{\@setfontsize\large\@xiipt{14}}
+\renewcommand\large{\@setfontsize\large\@xivpt{14}}
+
+% set dimensions of columns, gap between columns, and paragraph indent
+\setlength{\textheight}{25.2cm}
+\setlength{\textwidth}{16cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headheight}{0cm}
+\setlength{\headsep}{0cm}
+\setlength{\parindent}{3pt}
+\setlength{\oddsidemargin}{0cm}
+\setlength{\evensidemargin}{0cm}
+\setlength{\marginparwidth}{0cm}
+\setlength{\marginparsep}{0cm}
+
+% memento from size10.clo
+% \normalsize{\@setfontsize\normalsize\@xpt\@xiipt}
+% \small{\@setfontsize\small\@ixpt{11}}
+% \footnotesize{\@setfontsize\footnotesize\@viiipt{9.5}}
+% \scriptsize{\@setfontsize\scriptsize\@viipt\@viiipt}
+% \tiny{\@setfontsize\tiny\@vpt\@vipt}
+% \large{\@setfontsize\large\@xiipt{14}}
+% \Large{\@setfontsize\Large\@xivpt{18}}
+% \LARGE{\@setfontsize\LARGE\@xviipt{22}}
+% \huge{\@setfontsize\huge\@xxpt{25}}
+% \Huge{\@setfontsize\Huge\@xxvpt{30}}
+
+\def\@maketitle
+{
+  \newpage
+  \null
+  {\centering
+    {\large\bfseries\scshape \@title \par}
+    \vspace*{24pt}
+    {\normalsize\itshape
+      \lineskip .5em
+      \begin{tabular}[t]{c}
+        \@author
+      \end{tabular}
+      \par
+      }
+    \vskip .5em
+    {\normalsize\itshape
+      \begin{tabular}[t]{c}
+        \@affiliation
+      \end{tabular}
+      \par
+      \ifx \@empty \@email
+      \else
+      \begin{tabular}[t]{c}
+        \@email
+      \end{tabular}
+      \par
+      \fi
+      }% additional empty line at the end of the title block
+    \vspace*{12pt}}
+  }
+
+\renewenvironment{abstract}{%
+  \quote{\bfseries\essvabstractname:}}
+{\endquotation}
+%\def\abstract
+%{%
+%  \quote{\bf Abstract:~}%
+%    }
+
+%\def\endabstract
+%{%
+%% additional empty line at the end of the abstract
+%\vspace*{12pt}
+%}
+
+\def\affiliation#1{\gdef\@affiliation{#1}} \gdef\@affiliation{}
+
+\def\email#1{\gdef\@email{#1}}
+\gdef\@email{}
+
+\newlength{\@ctmp}
+\newlength{\@figindent}
+\setlength{\@figindent}{1pc}
+
+\long\def\@makecaption#1#2{
+   \vskip\abovecaptionskip
+   \setbox\@tempboxa\hbox{\hspace{0.75cm} {\footnotesize{\bfseries
+#1}~-~#2}}
+   \setlength{\@ctmp}{\hsize}
+   \addtolength{\@ctmp}{-0.75cm}\addtolength{\@ctmp}{-\@figindent}
+   % IF longer than one indented paragraph line
+   \ifdim \wd\@tempboxa >\@ctmp
+      % THEN set as an indented paragraph
+      \begin{list}{}{\leftmargin0.75cm \rightmargin\leftmargin}
+         \item[] {\footnotesize{\bfseries #1}~-~#2}\par
+      \end{list}
+   \else
+      % ELSE center
+      \hbox to\hsize{\box\@tempboxa\hfil}
+   \fi}
+
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-3.5ex \@plus -1ex \@minus -.2ex}%
+                                   {2.3ex \@plus.2ex}%
+                                   {\normalfont\large\bfseries}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\mdseries}}
+
+% end of file essv.sty
+% ---------------------------------------------------------------

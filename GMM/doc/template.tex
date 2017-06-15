@@ -1,0 +1,121 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{essv}
+% veraltet: \usepackage{times}
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+%
+\pagestyle{empty}
+\usepackage{ngerman}
+\selectlanguage{ngerman}
+\usepackage{bibgerm}
+\usepackage[utf8]{inputenc}
+%
+\usepackage{ifpdf}
+\ifpdf
+  \usepackage[pdftex]{graphicx}
+  \DeclareGraphicsExtensions{.pdf,.jpg,.png,.mps}
+  \usepackage[pdftex]{color}
+  \pdfcompresslevel=9
+\else
+  \usepackage{graphicx}
+  \DeclareGraphicsExtensions{.pstex,.eps,.mps}
+  \usepackage[dvips]{color}
+\fi
+%
+\begin{document}
+\title{
+  Formatvorlage für Beiträge Konferenz elektronische Sprachsignalverarbeitung
+}
+\author{
+  Matthias Wolff, Matthias Eichner und Rüdiger Hoffmann\\[6pt]
+  Institution\\
+  Email-Adresse des Hauptautors
+}
+\maketitle
+\thispagestyle{empty}
+\begin{abstract}
+  Um eine einheitliche Erscheinung des Tagungsbandes zu gewährleisten, bitten wir alle Autoren 
+  um die Einhaltung einiger Formatierungsrichtlinien. Falls Sie Latex oder Microsoft Word verwenden, 
+  können Sie dieses Dokument als Vorlage nutzen. Es enthält fertige Formate für alle benötigten 
+  Textelemente, inklusive Hauptüberschrift, Autorenliste, Literaturverzeichnis usw.
+\end{abstract}
+
+\section{Umfang der Beiträge}
+Beiträge sollten maximal 8 DIN-A4 Seiten umfassen.
+
+\section{Formatierung}
+\subsection{Schriftart und Schriftgrad}
+Der gesamte Beitrag soll in der Schriftart Times New Roman gehalten sein. Der Schriftgrad für 
+Textabsätze beträgt 12pt. Da die Vorlage für den Abdruck im Tagungsband verkleinert wird, sollte 
+kein Text (inklusive Text in Abbildungen und Tabellen) kleiner als 10pt sein. 
+
+\subsection{Satzspiegel}
+Beiträge werden im Format A4 eingereicht. Der rechte und linke Seitenrand beträgt 2,5 cm, der 
+obere Rand 2,5 cm und der untere Rand 2 cm. Schrift oder Grafiken außerhalb des angegebenen 
+Satzspiegels werden im Tagungsband möglicherweise nicht vollständig abgedruckt. 
+
+\subsection{Hauptüberschrift, Autorenliste und Institution(en)}
+Die Hauptüberschrift des Aufsatzes sollte in Times New Roman Schriftart 14pt fett gehalten sein. 
+Verwenden Sie wenn möglich Kapitälchen. Unter der Hauptüberschrift folgen die Liste der Autoren 
+und die Institution(en) in 12pt Times New Roman Kursivschrift. Sie können hier zusätzlich die 
+Email-Adresse des Hauptautors einfügen. 
+
+\subsection{Abstract}
+Am Anfang jedes Beitrags sollte eine Kurzfassung von etwa 200 bis 250 Wörtern Länge stehen. 
+Der Text ist rechts \emph{und} links um 0,75 cm eingezogen und in Blocksatz formatiert. 
+
+\subsection{Textabsätze}
+Der Abstand vor \emph{und} nach Absätzen im Textkörper beträgt jeweils 3pt. 
+Textabsätze sind in Blocksatz formatiert.
+
+\subsection{Abbildungen und Tabellen}
+Tabellen (siehe Tabelle~\ref{tab:tabelle_1}) und Abbildungen (siehe Abbildung~\ref{fig:abbildung_1}) 
+dürfen in keinem Fall über den Satzspiegel hinausreichen. 
+Die Beschriftungen sollten in Times New Roman 10pt gehalten sein. Der Einzug für Beschriftungen 
+beträgt rechts \emph{und} links 0,75 cm. 
+
+\begin{table}[hbt]
+  \caption{Eigenschaften von Wellenform-Datenknoten}
+  \vspace{.5\baselineskip}
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{Bez.} & \textbf{Typ} & \textbf{Beschreibung}\\
+    \hline
+    srate & long & Abtastrate ($\mathrm{s}^{-1}$)\\
+    \hline
+    flen & double & Rahmenlänge ($\mathrm{ms}$)\\
+    \hline
+    fsr & double & Rahmenfortsetzrate ($\mathrm{ms}$)\\
+    \hline
+  \end{tabular}
+  \label{tab:tabelle_1}
+\end{table}
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[scale=.45]{abbildung_1}
+  \caption{Systemarchitektur der Entwicklungsumgebung}
+  \label{fig:abbildung_1}
+\end{figure}
+
+\section{Überschrift 1. Ordnung: Times New Roman, 14pt, fett}
+
+\subsection{Überschrift 2. Ordnung: Times New Roman, 12pt, fett}
+
+\subsubsection{Überschrift 3. Ordnung: Times New Roman, 12pt, normal}
+Textkörper: Times New Roman, 12pt, normal, Blocksatz
+
+% BibTeX standard bibliography style for use with `bibgerman.sty'
+% *.bib language field: language = "german" | "USenglish" | "english"
+\bibliographystyle{gerabbrv}
+%
+% ABBRVDIN.BST wurde entwickelt aus Oren Patashnik's BibTeX standard
+% bibliography style `abbrv'. Eine vorgegebene Literaturdatenbank laesst sich
+% somit beliebig nach US- oder deutscher DIN 1505-Zitierkonvention verarbeiten.
+% \bibliographystyle{abbrvdin}
+%
+\nocite{Fellbaum1999}
+\nocite{2003_ESSV_MM}
+\bibliography{essv}
+\end{document}
